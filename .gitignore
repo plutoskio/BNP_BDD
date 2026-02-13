@@ -1,0 +1,12 @@
+# Database
+*.db
+*.db-shm
+*.db-wal
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# System
+.DS_Store
