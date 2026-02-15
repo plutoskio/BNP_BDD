@@ -7,13 +7,13 @@
 
 ## 🎯 Project Overview
 
-This project builds and analyzes a SQLite database of **4.8 million service request tickets** from BNP Paribas's Hobart ticketing system, spanning May 2019 - Dec 2025.
+This project builds and analyzes a SQLite database of **4,795,906 service request tickets** from BNP Paribas's Hobart ticketing system. Ticket creation dates span **May 1, 2019 to Dec 31, 2025** (based on `creationdate_parsed`), and the source extracts were delivered in three load periods: `2025-01_to_2025-09`, `2025-12`, and `2026-01`.
 
 **Key Deliverables:**
 - ✅ Clean, queryable SQLite database (`hobart.db`, ~14 GB)
 - ✅ Parsed date fields for time-series analysis
-- ✅ 100% data integrity (verified against CSVs)
-- ✅ Comprehensive documentation 
+- ✅ Counts and documentation aligned to the SQLite database (CSV→SQLite migration had minor row loss)
+- ✅ Comprehensive documentation
 
 ---
 
@@ -24,7 +24,7 @@ This project builds and analyzes a SQLite database of **4.8 million service requ
 **Read this first:** [`database_documentation.md`](./database_documentation.md)
 
 This is your **primary reference** - it contains:
-- Complete schema (54 columns in SR table, 7 foreign keys)
+- Complete schema (SR has 54 source fields + parsed date columns; 7 FK columns)
 - All table definitions
 - Query examples
 - Data quality notes
@@ -35,11 +35,21 @@ This is your **primary reference** - it contains:
 | Table | Rows | Description |
 |-------|------|-------------|
 | `sr` | 4,795,906 | Service requests (main table) |
-| `jur_user` | 5,177 | Users (staff/agents) |
+| `srcontact` | 17,514,081 | Email/communication records |
+| `activity` | 765,632 | Tasks/activities |
+| `historysr` | 28,650,010 | SR audit logs |
+| `historycommunication` | 20,891,355 | Communication audit logs |
+| `historyactivity` | 2,193,932 | Activity audit logs |
+| `client_query` | 113,606,901 | Customer ↔ SR mappings |
 | `category` | 46,005 | Request categories |
+| `jur_user` | 5,177 | Users (staff/agents) |
 | `label` | 15 | Status labels (CLOSED, ONGOING, etc.) |
+| `businessline` | 1 | Business lines |
+| `businessline_activity` | 3 | Business line activities |
+| `businessline_process` | 26 | Business line processes |
+| `deskbusinesslinelink` | 0 | Desk ↔ business line mapping (empty) |
 
-**Date Fields:** Use `_parsed` columns (e.g., `creationdate_parsed`) for queries.
+**Date Fields:** Use `_parsed` columns in `sr` (e.g., `creationdate_parsed`, `closingdate_parsed`). Format is `YY-MM-DD HH.MM.SS` (text). `creationdate_parsed` is complete; `closingdate_parsed` is ~98.61% populated; other `_parsed` fields are sparsely populated (≈10k rows or fewer each).
 
 ### 3. Project Structure
 
@@ -83,13 +93,14 @@ print(df)
 
 ### Date Queries (CRITICAL!)
 ```sql
--- ✅ CORRECT - Use parsed dates
-SELECT * FROM sr 
-WHERE creationdate_parsed > '2024-06-01' 
+-- ✅ CORRECT - Use parsed dates (format: 'YY-MM-DD HH.MM.SS')
+SELECT *
+FROM sr
+WHERE creationdate_parsed >= '24-06-01'
 ORDER BY creationdate_parsed DESC;
 
--- ❌ WRONG - Don't use original text dates
--- WHERE creationdate > '24-06-01'  -- This won't work!
+-- ❌ WRONG - Don't use original Oracle-style text dates
+-- WHERE creationdate > '24-06-01'  -- creationdate stores values like '02-JAN-24 05.42.56.267000 PM'
 ```
 
 ---
@@ -100,22 +111,22 @@ The database has been fully built and verified. The build scripts and intermedia
 
 **Build Highlights:**
 1.  **Schema Normalization:** Created new auto-increment primary keys to handle ID conflicts in source CSVs.
-2.  **Referential Integrity:** 100% validation of Foreign Keys.
-3.  **Date Parsing:** Converted Oracle-style timestamps to ISO-8601 for easy querying.
+2.  **Referential Integrity:** Foreign key relationships are defined in the schema.
+3.  **Date Parsing:** Normalized Oracle-style timestamps into consistent text dates (`YY-MM-DD HH.MM.SS`) in `_parsed` columns.
 
 ---
 
 ## 📋 Data Quality Notes
 
 ### ✅ What's Good
-- 100% row count match with CSVs
-- 97.5% ticket closure rate (healthy)
-- 0 orphaned foreign keys
+- SQLite is the source of truth for analysis (counts above reflect the current DB after migration).
+- 98.61% of tickets have `closingdate_parsed` populated.
+- `creationdate_parsed` is populated for all SRs.
 
 ### ⚠️ Known Issues
-1.  **~17% of tickets** have `closingdate < creationdate` (legacy data quirk).
-2.  **~50% NULL assignees** in SR table.
-3.  **Parsers:** Only `creationdate` and `closingdate` are fully parsed to `_parsed` columns.
+1.  **~8.13% of tickets** have `closingdate_parsed < creationdate_parsed` (legacy data quirk).
+2.  **Other parsed date fields** in `sr` are sparsely populated (≈10k rows or fewer each).
+3.  **`deskbusinesslinelink` is empty** (0 rows).
 
 ---
 

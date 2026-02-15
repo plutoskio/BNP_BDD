@@ -1,0 +1,847 @@
+
+[Page 1]
+The cases briefing
+
+[Page 2]
+2Case
+“Head of Operations”Mapping Group <> Case for the kick -off session
+Case
+“Client Services 
+Manager”Case
+“Quality Monitoring 
+Team”Case
+“Innovation Manager”
+Bachelor 1
+Bachelor 2
+Bachelor 3Group 1
+to
+Group 4 (included)
+Group 1
+to
+Group 4 (included)
+Group 1
+&
+Group 2Group 5
+to
+Group 8 (included)
+Group 5
+to
+Group 8 (included)
+Group 3
+&
+Group 4Group 9
+to
+Group 13 (included)
+Group 9
+to
+Group 12 (included)
+Group 5
+&
+Group 6Group 14
+to
+Group 18 (included)
+Group 13
+to
+Group 16 (included)
+Group 7
+&
+Group 8
+CIRCLE Room
+(10 groups)CROSS Room
+(10 groups)LINES Room
+(11 groups)AUDITORIUM Room
+(11 groups)
+[Page 3]
+3“Are we working asefficiently aspossible onourdesks?”
+From an operational perspective, the goal is to understand :
+▪where time is lost,
+▪where processes slow down,
+▪which activities could be streamlined.
+By observing the desks’ activities, can we identify areas where productivity can be improved, organisational bottlenecks, and
+opportunities to streamline workflows?
+From these observations, can we map out the current treatment paths and highlight where optimisation is needed.
+Outcome:
+A diagnostic view of operational efficiency, highlighting where improvements can be targeted to reduce friction and optimise 
+the organisation at scale.
+Deliverable :
+At the end of the HOBART Hack Quest, we expect each team to submit a concise analysis report presenting your key insights 
+backed by evidence.
+The format is entirely up to you —graphs, dashboards, tables, or any visual layout that best illustrates your findings.
+What matters is that your visuals are supported by a clear written reflection explaining how you interpreted the data and the
+conclusions you drew from it.Our Head of Operations
+
+[Page 4]
+4“How can we improve ourclients’ day todayexperience?”
+Client Service Managers will focus on what the data reveals about :
+▪client pain points,
+▪workload distribution,
+▪service consistency .
+From your observations, what takeaways are most relevant for Client Service Managers? Which desks handle the highest volume o r the most 
+sensitive topics? Can we
+identify clear patterns in how requests are processed and resolved? How can these insights help us better anticipate client n eeds and enhance 
+service quality?
+Outcome:
+An actionable understanding of how internal dynamics translate into client experience —and where to improve responsiveness, trans parency, 
+and overall service quality.
+Deliverable :
+▪At the end of the HOBART Hack Quest, we expect each team to submit a concise analysis report presenting your key insights bac kedby 
+evidence.
+▪The format is entirely up to you —graphs, dashboards, tables, or any visual layout that best illustrates your findings.
+▪What matters is that your visuals are supported by a clear written reflection explaining how you interpreted the data and the conclusions you 
+drew from it.Our Client Service Managers (CSMs)
+
+[Page 5]
+5“Are the inputs accurate enough tosupport meaningful insights?”
+This persona focuses on data hygiene , workflow accuracy , and KPI reliability .
+Looking at the quality of data entered in Hobart, which desks show incomplete or incorrect entries? How do inter -desk transfers reflect the 
+real workflow, and what can we
+infer from these movements? What do the provided data teach us about working relationships and coordination between desks? Wh ichkey 
+data points are essential for
+capturing the true stakes and constraints of our organisation?
+Outcome:
+A clear picture of data quality gaps, leading to better training, improved tool usage, and stronger foundations for analytics .
+Deliverable :
+▪At the end of the HOBART Hack Quest, we expect each team to submit a concise analysis report presenting your key insights bac kedby 
+evidence.
+▪The format is entirely up to you —graphs, dashboards, tables, or any visual layout that best illustrates your findings.
+▪What matters is that your visuals are supported by a clear written reflection explaining how you interpreted the data and the conclusions 
+you drew from it.Our Hobart Quality Monitoring Team
+
+[Page 6]
+6“What unexpected patterns inthe data could help usreinvent ourservice?”
+This is the wild card , where creativity meets analytics.
+▪Can we surface hidden patterns and ‘fun facts’ that traditional analyses might miss?
+▪What surprising insights about client behaviour, workload distribution, or workflow dynamics emerge when we look
+at the data differently?
+▪Can our apprentice data scientists showcase novel angles —e.g., weak signals, anomalies, or cross -desk relationships —
+that suggest new ways to create value?
+▪Which unconventional data features (or combinations) appear most promising to pilot improvements in our service model?
+Outcome:
+Creative insights that help rethink processes, identify new levers for service improvement, or imagine smarter workflows —not jus t optimise 
+the existing ones.
+Deliverable :
+▪At the end of the HOBART Hack Quest, we expect each team to submit a concise analysis report presenting your key insights bac ked
+by evidence.
+▪The format is entirely up to you —graphs, dashboards, tables, or any visual layout that best illustrates your findings.
+▪What matters is that your visuals are supported by a clear written reflection explaining how you interpreted the data and the conclusions 
+you drew from it.Our Innovation Manager
+
+
+==================================================
+
+
+[Page 1]
+Business Deep Dive
+Kick off session
+2026, Feb 2nd
+
+[Page 2]
+WELCOME TO YOUR UPDATED BDD EXPERIENCE
+Rationale (mostly based onyour feedback and discussions with working groups ofstudents ):
+•More commitment from partner companies
+•More usecases
+•More open problems ->thereby implying asking more questions toexperts and listen tothecontext
+•More time todeep dive into thedata (…also meaning more complex data)
+->Week #1isdedicated toexploring thedata, and testing implementation strategies .You’ll getchallenged .
+•More reflection towards theuseofAI->You’ll beevaluated onyour usage ofAI
+•More transparency onthecommitment ofeach team member ->More difficult tohide …
+Key updates (mostly based onyour feedback ondiscussions with working groups ofstudents ):
+•Revamped «Kick -off»->Masterclass ,then deep dive inthebusiness context ofusecases
+•Revamped «Mentorship »->NowOnTheGrill sessions, mixed with OfficeHours :
+➢Each teams having 10-15’with partner company experts
+➢Inthemeantime ,‘office hours ’mode intheauditorium with other partner company experts
+•Revamped «Wrap -up»->Every teams present their fullwork
+•Pitch attheHQwith executives forthewinners ofeach usecase1
+2
+[Page 3]
+31. INTRODUCTION OF SPEAKERS
+2. BNP PARIBAS MASTERCLASS
+3. OVERALL PRESENTATION OF BUSINESS CONTEXT & 
+USECASES
+4. DEEP DIVE IN CASES
+5. WORK SESSION FOR 1st DELIVERABLE —
+the Reverse BriefAuditorium (~1h)
+Faculty
+BNP Paribas Chief Digital Services Officer
+BNP Paribas experts
+Breakout rooms (~1h)
+BNP Paribas experts
+
+[Page 4]
+New deliverable #1 –The Reverse Brief
+See detailed guidelines on the corresponding item on Blackboard
+Objective
+The Reverse Brief ensures your team truly understands thebusiness problem before proposing solutions .
+You must reframe thechallenge, define adata -driven plan ofaction, and ensure your team isfully aligned onpriorities and ownership .
+Due bynext Thrusday ,and itisexpected tobechallenged during theOnTheGrill session onFriday .
+Expected Output
+•Format :2-page document (PDF) .
+➢Page 1–Written synthesis (max 100 words +keyassumptions ).
+➢Page 2–Visual diagram ofthecritical path /work plan .
+•Tools (recommended ):Miro, Notion, orany brainstorming /project management tool.
+Content Requirements
+•Problem Reframing (max 100 words ):Restate thechallenge inyour own words —what isreally being asked ofyou?
+•Key Hypotheses (3–4):The assumptions you’ll test throughout theBDD
+•Critical Path /Work Plan (visual ):Adiagram showing how you plan tosolve thecase —steps ,tasks ,milestones ,dependencies .
+•Team Alignment &Ownership :
+➢The group must agree onpriorities and milestones .
+➢Each member must beowner ofspecific tasks inthework plan .
+[Page 5]
+New deliverable #2 –The AI Log
+See detailed guidelines on the corresponding item on Blackboard
+Objective
+The AILog documents how your team uses AItools (which you should definitely use —ChatGPT ,Gemini, Claude, etc.)responsibly and
+effectively .
+Itdemonstrates transparency ,ethical practice, and your ability tointegrate AIinto real workflows .
+Expected Output
+Format :2pages PDF.
+Must include public links (ie.open toanyone )toGPT chat(s) orother AIsessions used fortheproject .
+Content Requirements
+Your AILogmust include :
+•Open Access Links :Provide shareable links toyour AIsessions (“Anyone with thelinkcanview ”).
+•Tool(s) Used :ListtheAItools you used (e.g.ChatGPT ,Gemini, Claude, Copilot ).
+•Purpose ofUse:Explain forwhat tasks you used AI—ideation ,data analysis ,code generation ,drafting, etc.
+•Prompt Examples :Include exact prompts orscreenshots ofyour keyqueries .
+•Outputs and Validation :Summarize what AIproduced and how you validated orcorrected it.
+•Reflection (Critical Analysis ):Identify 3areas where AIperformed better than you would have .
+➢Identify 3areas where you outperformed AI(judgment ,creativity ,orinterpretation ).
+➢Reflect onwhat you learned from this collaboration between human and AI.
+[Page 6]
+Case
+“Head of Operations”Case
+“Client Services Manager”Case
+“Quality Monitoring Team”Case
+“Innovation Manager”
+Bachelor 1
+Bachelor 2
+Bachelor 3Group 1
+to
+Group 4 (included)
+Group 1
+to
+Group 4 (included)
+Group 1
+&
+Group 2Group 5
+to
+Group 8 (included)
+Group 5
+to
+Group 8 (included)
+Group 3
+&
+Group 4Group 9
+to
+Group 13 (included)
+Group 9
+to
+Group 12 (included)
+Group 5
+&
+Group 6Group 14
+to
+Group 18 (included)
+Group 13
+to
+Group 16 (included)
+Group 7
+&
+Group 8
+CIRCLE Room
+(10 groups)CROSS Room
+(10 groups)LINES Room
+(11 groups)AUDITORIUM Room
+(11 groups)
+BREAKOUT ROOMS PER CASES 
+Please look at your Blackboard Group number
+[Page 7]
+BNP PARIBAS 
+SECURITIES SERVICES
+02 february 2026
+HOBART HACK QUEST WITH ALBERTSCHOOL
+
+[Page 8]
+WHO WE ARE~1 KB / 6,423 KB
+
+[Page 9]
+~343 KB / 6,423 KB
+BNP Paribas supports its clients on all continents
+
+[Page 10]
+BNP Paribas has a presence in 64* countries and territories , with nearly 178,000* employees , 
+including more than 144,000 in Europe. 
+The Group supports all its customers -individuals, entrepreneurs, SMEs and institutions, 
+associations –in the implementation of their projects through its financing, investment, savings 
+and protection solutions. 
+Our organisation is structured around three operating divisions . Their business lines cooperate 
+closely, as part of our integrated model, to meet the needs of all our clients in a coordinated 
+manner : 
+•Corporate & Institutional Banking, which supports corporate and institutional clients;
+•Commercial, Personal Banking & Services, which brings together all the Group’s commercial & 
+personal banking and several specialised businesses ; 
+•Investment & Protection Services, which offers a unique continuum of products and services 
+across protection, saving, investment and real -estate.
+*Figures as at 31/12/2024, not taking into account data from AXA Investment managers who joined the Group in July 2025.~103 KB / 6,423 KB
+LEADER IN BANKING AND FINANCIAL SERVICES IN EUROPE
+
+[Page 11]
+Nearly 178,000 committed 
+employees, worldwide.
+Broad diversification by 
+customer segment, 
+geography, sector and 
+business line.Cooperation between 
+business lines, to meet all 
+our customers’ needs.A European leader with global 
+reach operating in 
+64 countries and territories.
+Technology and innovation at 
+the heart of our model with 
+more than 800 AI use cases in 
+production in 2024.
+A solid financial structure 
+with €134.1bn in 
+shareholder’s equity.A leading group in sustainable 
+finance , #1 worldwide in ESG 
+bonds and loans with US$69.2bn in 
+2024 (source Dealogic).Corporate 
+& Institutional 
+BankingCommercial, 
+Personal Banking 
+& Services 
+Investment 
+& Protection ServicesOur three operating divisions
+Our solutions~26 KB / 6,423 KB
+O U R  A S S E T SA Diversified AND INTEGRATED BUSINESS model
+•Everyday banking
+•Payments
+•Advice
+•Financing
+•Investments
+•Savings
+•Protection
+Figures as at 31/12/2024, not taking into account data from AXA Investment Managers who joined the Group in July 2025 .Weare here
+
+[Page 12]
+*   Member of the Executive Committee of BNP Paribas.
+**  Yann GÉRARDIN and Olivier OSTY are respectively Executive Chairman and Chief 
+Executive Officer of CIB.
+***  José PLACIDO overseas all the Group’s activities for the Americas region, Paul YANG for 
+the Asia -Pacific region and Geert Lippens for the Europe, Middle East and Africa region.
+**** The operating divisions’ COOs report functionally to the Group COO, Philippe MAILLARD .
+***** Philippe BORDENAVE is the sponsor of the Group’s activities in Germany.Jean -Laurent BONNAFÉ *
+Director and Chief Executive Officer
+Senior Executive Advisor
+CASH MANAGEMENT, PAYMENTS, 
+TRADE FINANCE & FACTORING
+Pierre FERSZTANDALM TREASURY
+Nicolas PILLETONE BANK
+Caroline PEZ -LEFÈVREBIVWAK!
+Marie GUILLAUMETRANSVERSAL 
+ACTIVITIESPhilippe BORDENAVE *****1Nickel, Floa, Lyf.
+2Corporate Real Estate (IMEX), 
+People & Property Security (PPS), 
+Business Partner Group (BPG), 
+Group Corporate Insurance (GCI), 
+GAM -Restaurant.lCOMPLIANCE
+Stéphanie MAAREK *
+LEGAL
+Georges DIRANI
+RISK
+Frank RONCEY *
+INSPECTION GÉNÉRALE
+Pascal FISCHERIT GROUP
+Marc CAMUS *
+TOP SERVICES 2
+Jean -Louis MARLIERPROCUREMENT 
+& PERFORMANCE
+Enguerrand de RUFFI de 
+PONTEVES
+TRANSVERSAL PROJECTS 
+& STEERING 
+Charles LINSKENS GROUP DATA OFFICE 
+Hugues EVEN
+BNP PARIBAS CONSULTING
+& TRANSFORMATION
+Thierry LACHAUXPhilippe MAILLARD *
+COMMERCIAL & 
+PERSONAL BANKING IN 
+FRANCE
+Isabelle LOC *BNP PARIBAS
+PERSONAL FINANCE
+Gilles ZEITOUN *
+BNL
+Elena GOITINI *ARVAL
+Alain VAN GROENENDAEL
+BNP PARIBAS FORTIS
+Michael ANSEEUW *BNP PARIBAS 
+LEASING SOLUTIONS
+Neil PEIN
+DIGITAL BUSINESSES 1 & 
+PERSONAL INVESTORS
+Nicolas OTTONThomas ZINK 
+EUROPE -
+MEDITERRANEAN
+François BÉNAROYA
+PARTNERS IN ACTION 
+FOR CUSTOMER 
+EXPERIENCE
+Sophie HELLERCAPITAL MARKETS
+Renaud -Franck FALCE
+EQUITIES
+Nicolas MARQUE
+FIXED INCOME CURRENCIES 
+& COMMODITIES
+Arne GROESAMERICAS
+José PLACIDO *** 
+APAC
+Paul YANG ***
+EMEA
+Geert LIPPENS ***
+CIB COO
+Boris LEBLANC ****CORPORATE & INSTITUTIONAL BANKING (CIB)
+Yann GÉRARDIN *   Chief Operating Officer **
+Olivier OSTY *          Deputy Chief Operating Officer  **COMMERCIAL, PERSONAL BANKING 
+& SERVICES (CPBS)
+Thierry LABORDE *
+Chief Operating Officer
+BNP PARIBAS CARDIF
+Pauline LECLERC -GLORIEUX *
+BNP PARIBAS 
+ASSET MANAGEMENT
+Sandro PIERRI 
+BNP PARIBAS 
+WEALTH MANAGEMENT
+Vincent LECOMTE
+BNP PARIBAS 
+REAL ESTATE
+Thierry LAROUE -PONTINVESTMENT & PROTECTION 
+SERVICES (IPS)
+Renaud DUMORA *
+Deputy Chief Operating Officer
+CORPORATE SOCIAL 
+RESPONSIBILITY
+Laurence PESSEZ
+GROUP PHILANTHROPY
+Isabelle GIORDANOCOMPANY ENGAGEMENT
+Anne POINTET *TECHNOLOGY & OPERATIONAL 
+PERFORMANCE (TOP)
+GROUP HUMAN 
+RESOURCES
+Sofia MERLO *FINANCE & STRATEGY
+Lars MACHENIL *OPERATING DIVISIONS 
+AND BUSINESS LINESTRANSVERSAL
+FUNCTIONS
+GROUP COMMUNICATIONS
+Élise HERMANT *
+BGL BNP PARIBASCOMMERCIAL & PERSONAL 
+BANKING EUROZONE
+Yannick JUNG *
+Deputy Chief Operating Officer
+CPBS COO
+Pierre RUHLMANN ****TRANSACTION BANKING
+Aurélia NORMAND
+ADVISORY & 
+CORPORATE COVERAGE
+George HolstINSTITUTIONAL COVERAGE
+Sandrine FERDANEOur organisation chart
+SECURITIES SERVICES
+Claudine GAL LAGHER
+Weare here
+[Page 13]
+BNP Paribas –Securities Services
+Introducing BNP Paribas Securities Services, a BNP Paribas Business line, in CIB pole
+
+[Page 14]
+Securities Services activities
+We are a multi -asset servicing specialist supporting clients in investments and cross -border distribution. 
+With a focus on innovation, and integrated solutions, our organization is designed to efficiently manage a 
+wide range of activities in a fast -changing world .
+
+[Page 15]
+15 400 000 000 000USD 2 900 000 000 000USDSecurities Services in numbers
+Allfigures asof31/03/2025
+*Fifth global custodian globally andfirstEuropean global custodian byassets under custody Find out more : https://securities.cib.bnpparibas/
+Ambition: To be the leading positive -impact asset servicer and partner of 
+choice for large financial institutions
+
+[Page 16]
+Our Digital Strategy
+Hobart is a cornerstone of our digital strategy. As the central interface between our complex internal 
+organisation and the clients we serve, connecting diverse operational teams tailored to each client’s 
+specific setup. By centralising all interactions and workflows, Hobart ensures consistency, transparency, 
+and a seamless client experience across the organisation.
+
+[Page 17]
+17Jean -Marc Friess
+Chief Digital OfficerAnne -Laure Villanova
+Innovation promotionWilliam Aumont
+Head of Query Management 
+TransformationSuzana Tadic
+Head of Hobart & 
+SymphonySecurities services actors -Your sponsor team for the 
+challenge
+SofiaRocha
+Hobart Team
+Lisbon
+Hobart Team
+LisbonPatricia Fernandes
+ Amanda Guardiola
+Deputy Head of 
+Hobart
+Doudja Atmani
+Hobart Team
+
+[Page 18]
+18Platform RenewalDigital achievements and next move
+Breakthrough in both the delivery of new digital 
+services and in the market recognitionA C H I E V E M E N T S
+ N E X T  M O V E ( 2 0 2 6 O N W A R D S )
+In-depth transformation 
+of 2S/clients’ connectivity
+CHANNELS
+WEB PORTAL, APIsPRODUCT DOMAINS 
+SERVICES
+Custody, Cash, FA, TA, MO, 
+ETF, Private Cap, FX, Fin … TRANSVERSAL 
+SERVICES
+UX, Reporting, Enablement, 
+Monitoring 
+Usage development
++10% in av. monthly active users
+Client verbatims & CSAT
+“A clear improvement. A much more user -friendly interface.”
+Award
+Innovation in Custody 2024 Award  -Asset Servicing Times
+1. PLATFORM RENEWAL
+2. MARKET RECOGNITION3. SELF SERVICING
+4. QUERY MGT TRANSFORMATION
+5. PLATFORM DE -RISKING
+▪ENABLEMENT & ACCESS MANAGEMENT         
+(Entities, Users, Resources, Subscriptions, Legal Framework)
+•IT STABILITY  & RESILIENCE▪MONITORING & OPTIMISA TION 
+(e.g. Queries Monit; & Dboards, Quality & Streamlining, Process Mining Anal.)
+▪AUTOMATION
+(HOBART Smart Query Manager, NOA Skills extension)▪MORE EFFICIENT INTERACTIONS WITH DIGITAL USAGE
+(e.g. NEOLINK WEB PORTAL, APIs, NOA)▪MORE EQUIPMENT 
+(e.g. NEOLINK for all clients)
+[Page 19]
+19
+Wide set of channels (e.g. next 
+generation of 
+ NeoLink
+ , enriched API 
+portfolio) to cover the diversity of our 
+institutional clients’ requirements.
+DIGITAL
+SERVICES
+2
+ 5
+3
+ 4
+6
+ 1Relying on an 
+industrial & robust 
+bedrock
+Available via multiple 
+channelsEmbracing a wide set 
+of business services
+Designed for 
+operational efficiency 
+and decision makingLeveraging 
+innovation in 
+business and 
+technologyProperly explained 
+and disclosed to 
+clients
+Extended set of services across all 
+business domains covering the 
+investment cycle (e.g. custody, cash, 
+fund services, alternative investments, 
+market and financing services).
+Seamless integration of innovation (e.g. 
+fintech services, digital assets and artificial 
+intelligence) in our digital ecosystem.
+Robust technical bedrock ensuring resilience 
+and performance (e.g. stability, latency, 
+monitoring authentication, security and 
+agility).
+A range of digital experts 
+supporting clients through digital 
+activation and solution adoption 
+(e.g. webinars, demo, trainings 
+and support teams).
+Continuous improvement (e.g. user interface, 
+reporting framework, query management, 
+enablement) to support users in both 
+operations management and decision
+ -
+making.Our strategy to support clients through digital services & channels
+[Page 20]
+QUERY MANAGEMENT 
+TRANSFORMATION Hobart
+Digital self servicing development, and best in class mail queries treatment are the two key drivers of the 
+client satisfaction 
+
+[Page 21]
+Query Management CIB Securities Services in a nutshell : 
+Digital self servicing development, and best in class mail queries treatment are the two key drivers of the client satisfacti on 
+Leverage our best in class digital capabilities to decrease the 
+volumes of Mail client queries and better serve our clients
+•In line with the growth of the activity, we expect the overall volume of queries to 
+continue increasing until 2030.
+•Significant share of the mail queries could be avoided as the information is already 
+available on the digital channels
+2024•19 Mio inbound 
+emails
+•3 Mio Service 
+Requests
+•5k Hobart Users •16 Mio inbound 
+emails
+•2,5 Mio Service 
+Requests
+•4k Hobart Users Self Servicing
+-1Mio Srs
+Better treat the client Mail Queries 
+•Standardize (Hobart  Roll out, harmonize usage, …) > 1300 desks are equipped with 
+Hobart (80% of the operational teams) 
+•Steer & Optimize : Improve monitoring & steering, leverage Hobart Process mining & 
+continuous improvement
+•Automate (AI Program “Smart Query Manager”, …)2025 2030 (est.)•Est. 30 Mio inbound emails
+•4,9Mio Service Requests
+•7k Hobart Users
+Volumes of Inbound client emails, Service Requests, and Hobart Users 
+Query Management Transformation relies on two main pillars 
+A Steady growth of inbound emails & Service Request confirmed in 2025
+(est. x1.3 until 2030)
+•24Mio inbound emails
+•3,9 Mio Service Requests
+
+[Page 22]
+July 2025 22HOBART QUERY MANAGEMENT SOLUTION
+Intro to HobartHobart isanin-house Query Management Solution developed 
+with the aim to handle external and internal client queries 
+efficiently. 
+Hobart enables to :. 
+❑ Handle client queries by creation of Service request 
+(tickets) which makes following up more efficient
+❑ Organize and collaborate to make team workflows more 
+interactive and knowledge sharing easier
+❑ Monitor & Steer : with a dedicated statistics portal (Power 
+BI)
+▪ Facilitates the work in remote 
+mode and back up cases 
+▪ Easy reassignement
+▪ Allows the team to share 
+work, tasks and knowledgeR e a l  t i m e  
+m o n i t o r i n g  &  
+d e a d l i n e  
+a c h i e v e m e n t
+▪ Each SR have an unique 
+reference
+▪ Automatic link done by the tool.
+▪ Tasks feature to communicate 
+internally
+▪ Respect chinese walls▪ SLA for each client can be 
+displayed, for query time 
+response.
+▪ Reminders and alerts are 
+displayed accordingly▪ Allow the extraction of all the 
+details about SRs, emails and 
+Tasks.
+▪ Power BI portal available with 
+predefined dashboardsM o n i t o r  
+p r i o r i t i e s  &  
+c o n t r o l
+▪ 4 eyes check
+▪ Data breach alert
+▪ Audit trail option
+▪ External contacts validated in the 
+database
+▪ Dashboards to monitor the activity 
+in real time
+▪ Grid countsT i m e  
+S a v i n g
+▪ Scheduler can be set up to 
+create automatic emails
+▪ Signature set up with dynamic 
+tags
+▪ Automatic email classifier 
+based on AI is deliveredC u s t o m i s e d
+K P I s  f o r  u s e f u l  
+i n s i g h t sI m p r o v e  
+e f f i c i e n c y  a c r o s s  
+t e a m  &  l o c a t i o n sE n s u r e  b u s i n e s s  
+c o n t i n u i t yEffective collaboration to answer client requests & provide 1st class Client Service experience
+[Page 23]
+Hobart
+Introducing Hobart , the platform at the heart of our customer request management process.
+Hobart serves as our central tool for collecting, organizing, and tracking client requests. It provides a 
+structured environment that allows us to respond efficiently and consistently to the needs of our 
+stakeholders.
+The data and insights we’ll be sharing with you for the challenge are drawn directly from Hobart.
+
+[Page 24]
+H OB AR T 
+C en tra l 
+Te amSuzana TADIC (FR)
+Doudja ATMANI (FR)
+Amanda GUARDIOLA (FR)
+Patricia FERNANDES (PT)
+Ana ROCHA (PT)
+25 COUNTRIES
+5000 USERS4 BUSINESS LINES
+26 000 000
+EMAILS
+/Year3 000 000
+SR CREATED
+/Year
+With you
+since 2017…Aticketing tool around the World…
+… A team to promote it
+
+[Page 25]
+What is Hobart ?
+25AA mask with functionalities on an 
+Outlook generic mailbox
+Your team activity at a glance
+All your emails listed or per 
+filtersSeveral protective features to reduce 
+data breach 
+( 4 eyes check, contact registration, controls & 
+warnings )Back up and holidays management eased
+Automated dispatch and rules with 
+flags
+Powerful statistics in Power BI
+AI enriched features : Smart Classifier (SR prediction), SQM ( priorization , summary, drafter ) 
+
+[Page 26]
+26What is A Service Request, a Query ? 
+A Query refers to any question, request, or complaint submitted by an 
+internal contact, client, or third party to the dedicated Securities Services 
+teams. These can be received through various channels such as email, 
+phone, messaging, fax, or the "New My Queries" platform.
+A query includes any item received at a Hobart desk that requires action 
+from our teams. Queries can range from simple inquiries handled by 
+Level 1 (L1) teams to more complex cases that may involve escalation to 
+Level 2 (L2), Level 3 (L3), or Level 4 (L4) teams.Service request (SR) –It’s a ticket and acts as a folder for all the 
+communications taken place on one particular query generated by a 
+client (internal or external).
+
+[Page 27]
+Hobart key concepts : what is in our data sets ?
+Intro to Hobart July 2025 27Task (other name = Activity)
+When you create a Service Request but you need another user’s or team’s 
+contribution or to obtain information from them, you can now create a 
+TASK.  A Task acts as a sub folder within SR which contains all the 
+communication with L2 team. It allows you to monitor the status of the 
+action on the task.
+The person who receives the task can create a TASK REQUEST (similar to a 
+Service Request)Warning = ACTIVITY DOESN’T 
+MEAN ACTIVITY
+Desk
+A desk is a common operational digital space shared by a team, just like 
+a work desk in real life 
+A desk contains all the emails and communications received in the 
+Hobart team mailbox
+Each desk has its own mailbox and a desk name. A desk can be 
+customised according to needs during or after onboarding.
+One user can be part of multiple desks and can switch between them as 
+per choice
+[Page 28]
+Hobart key concepts : what is in our data sets ?
+Workflow statuses
+
+[Page 29]
+29
+Hobart Demo
+[Page 30]
+The Hobart Hack Quest
+A bold data exploration challenge where your mission is to uncover untapped insights and spark service 
+innovation using the Hobart platform
+
+[Page 31]
+31Our questions –les défis
+Our head of 
+operations“Are we working as efficiently as possible on our desks?”
+By observing the desks’ activities, can we identify areas where productivity can be improved, organisational bottlenecks, and opportunities to streamline workflows?
+From these observations, can we map out the current treatment paths and highlight where optimisation is needed?
+Our client 
+service 
+managers“How can we improve our clients’ day -to-day experience?”
+From your observations, what takeaways are most relevant for Client Service Managers? Which desks handle the highest volume o r the most sensitive topics? Can we 
+identify clear patterns in how requests are processed and resolved? How can these insights help us better anticipate client n eeds and enhance service quality?
+Our Hobart 
+Quality 
+monitoring 
+team“Are the inputs accurate enough to support meaningful insights?”
+Looking at the quality of data entered in Hobart, which desks show incomplete or incorrect entries? How do inter -desk transfers reflect the real workflow, and what can we 
+infer from these movements? What do the provided data teach us about working relationships and coordination between desks? Wh ichkey data points are essential for 
+capturing the true stakes and constraints of our organisation?
+Our Innovation 
+managerWhat unexpected patterns in the data could help us reinvent our service?”
+Treating this as our wild card, can we surface hidden patterns and ‘fun facts’ that traditional analyses might miss?
+What surprising insights about client behaviour, workload distribution, or workflow dynamics emerge when we look at the data differently?
+Can our apprentice data scientists showcase novel angles —e.g., weak signals, anomalies, or cross -desk relationships —that suggest new ways to create value?
+Which unconventional data features (or combinations) appear most promising to pilot improvements in our service model?
+
+[Page 32]
+32The reward
+Andmay beothe surprises …
+3
+2
+Fabrice Silberzan
+COO
+Board MemberMathilde Guerin 
+Head of Industrial 
+transformation
+Board Member
+Jean -Marc Friess
+Chief Digital Officer
+The best teams willgetto come at ourhead office in Patin to pitch their results to ourSenior management
+Share your ideas, 
+shine bright, 
+and 
+enjoy a unique 
+moment with 
+our senior 
+leadership team
+
+[Page 33]
+Your data treasure chest
+
+[Page 34]
+The data set
+■Complete details on Service Requests 
+and tasks within a one -year period : 
+■An initial batch from January 25 to 
+October 25
+■Additional data to extend the 
+historical coverage​Additional files to understand your data 
+■A description on an excel spreadsheet, 
+detailing the data points included in 
+your data sets
+■The diagram representing the data 
+modelThe business context
+■Overview of the Hobart PowerPoint 
+presentation
+■The video demonstration
+■The bonus track
+■Also, remember the key components of 
+Securities Services in today’s 
+presentation
+
+==================================================
+
+
+[Page 1]
+                   
+ Subject: The HOBART Quest at BNP Paribas    Dear Students,    I’m Jean-Marc Friess, Chief Digital Services Officer at BNP Paribas Securities Services. Next week, you’ll join our teams in what we call the HOBART Quest — a Business Deep Dive that is as real as it gets.   HOBART is our in-house query management tool. It sits at the core of how we serve our clients every day. It connects 1,300+ desks, 5,000+ users, and 25+ locations worldwide — handling a constant flow of internal and external queries.  Every question we receive becomes a Service Request (ticket), and teams collaborate through desks and task requests to solve it.   It works — but it could work better. And that’s where you come in.    
+💡 Your Mission  This Business Deep Dive is not a case study or a simulation. It’s a real optimization challenge. We run HOBART at scale, and we need fresh perspectives to help us cut through the noise and make smarter decisions with the data we have.   You will explore one of four critical use cases, each rooted in our daily operations and strategic priorities — more details to come on Monday, Feb 2nd during the kick off session: • Operational Efficiency  • Client Experience  • Data Quality  • Innovation & AI  Each persona asks the same question from a different angle: How do we make better decisions with the data we already have?    
+[Page 2]
+                   
+⚙ What We Expect From You  AI won’t solve this for you. You’re dealing with a scale of complexity where tools alone aren’t enough. You need to prioritize, lead, and innovate.  We’re counting on you to:  • Use your critical thinking to see patterns where others see noise.  • Challenge our assumptions and propose fresh perspectives.  • Transform insight into actionable solutions that could shape how we work tomorrow. This is your chance to make an impact on a system used every day by thousands of BNP colleagues and clients around the world.    
+🧭 A Final Word  This Deep Dive is for those who want to own the problem, not just run the report. You’ll be guided by our teams from Paris and Lisbon, and we will be following your progress closely. We believe that your creativity, your data mindset, and your ability to turn information into insight can make a real difference.   On Monday, I’ll join you for the Kick-Off to launch the HOBART Quest alongside Suzana Tadic and Anne-Laure Villanova. We can’t wait to see what you will build, discover, and challenge over the next few weeks.   Let’s get to work — and let’s make HOBART smarter together.   Warm regards,    Jean-Marc Friess Chief Digital Services Officer BNP Paribas Securities Services 
+
+==================================================
+
