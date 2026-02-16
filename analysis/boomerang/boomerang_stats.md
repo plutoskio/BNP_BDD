@@ -1,5 +1,7 @@
 # Boomerang Analysis
 
+> **Definition:** A **Boomerang** ticket is a support request that was marked as closed but subsequently re-opened. This metric is critical for measuring First Contact Resolution (FCR) failure and customer dissatisfaction, as it indicates the initial solution was ineffective or incomplete.
+
 **Global Rate:** 0.03%
 
 ## Top Categories (High Failure Rate)

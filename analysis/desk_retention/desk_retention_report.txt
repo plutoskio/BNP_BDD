@@ -1,0 +1,7 @@
+DESK RETENTION ANALYSIS
+-----------------------
+Definition: Percentage of tickets where the Creation Desk is the same as the Closing Desk.
+
+Total Closed Tickets Analyzed: 272130
+Tickets Solved by Initial Desk: 232579
+Retention Rate: 85.47%

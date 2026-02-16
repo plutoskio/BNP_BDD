@@ -85,6 +85,7 @@ def analyze_boomerang():
     # --- Save Stats ---
     with open("analysis/boomerang/boomerang_stats.md", "w") as f:
         f.write(f"# Boomerang Analysis\n\n")
+        f.write("> **Definition:** A **Boomerang** ticket is a support request that was marked as closed but subsequently re-opened. This metric is critical for measuring First Contact Resolution (FCR) failure and customer dissatisfaction, as it indicates the initial solution was ineffective or incomplete.\n\n")
         f.write(f"**Global Rate:** {global_rate:.2f}%\n\n")
         f.write(f"## Top Categories (High Failure Rate)\n")
         f.write(top_20.to_markdown(index=False))
