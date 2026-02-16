@@ -12,26 +12,25 @@ Design a theoretical, high-impact triage logic for Hobart that:
 flowchart TD
     A["Incoming Query (SR)"] --> B{"Is answer directly available in trusted data<br/>with no subjective interpretation?"}
 
-    B -- Yes --> C["AI Auto-Response Agent"]
-    C --> C1{"Confidence and policy checks pass?"}
-    C1 -- Yes --> C2["Send response + log rationale + close or monitor"]
-    C1 -- No --> D
+    B -- Yes --> C["AI Response"]
+    C --> C3{"Client satisfied?"}
+    C3 -- Yes --> C4["Close or monitor ticket"]
+    C3 -- No --> F["Suggest best-fit human agent based on expertise, load, and SLA risk"]
 
     B -- No --> D{"Does this require multiple desks?"}
 
-    D -- Yes --> E["Multi-Desk Workflow Orchestrator"]
-    E --> E1["Assign single accountable case owner"]
+    D -- No --> F["Suggest best-fit human agent based on expertise, load, and SLA risk"]
+    D -- Yes --> E["AI Coordinator: Multi-Desk Workflow Orchestrator"]
+    E --> E1["Assign human ticket owner (accountable end-to-end)"]
     E1 --> E2["Create parallel desk tasks + dependency tracking"]
     E2 --> E3["Consolidate outputs + final client response"]
 
-    D -- No --> F["Single-Desk Smart Routing"]
-    F --> F1["Suggest best-fit agent based on expertise, load, and SLA risk"]
-    F1 --> F2["Agent handles case with AI drafting support"]
+    F --> F2["Human agent handles case"]
 
-    C2 --> G["Outcome Tracking and Feedback Loop"]
+    C4 --> G["Outcome Tracking"]
     E3 --> G
     F2 --> G
-    G --> H["Continuous improvement: update routing rules and prompt playbooks"]
+    G --> H["KPI reporting and governance"]
 ```
 
 ## Node Logic (Plain Language)
@@ -41,30 +40,29 @@ flowchart TD
 - If yes, AI can answer directly.
 - If no, move to workflow routing.
 
-2. AI Auto-Response Agent
+2. AI Response
 - Handles repetitive, low-risk requests (status check, due date, known process step).
-- Must pass confidence and policy checks before sending.
-- If checks fail, fallback to workflow routing.
+- If the client is not satisfied, the case is redirected to a human agent flow.
 
 3. Multi-Desk Decision
-- If resolution requires several desks, trigger orchestration, not serial handoffs.
-- One case owner stays responsible end-to-end.
+- If resolution requires several desks, an AI coordinator orchestrates the workflow instead of serial handoffs.
+- A human ticket owner remains accountable end-to-end for decisions and client communication.
 
 4. Single-Desk Smart Routing
-- If one desk can solve it, suggest the most relevant available agent.
+- If one desk can solve it, suggest the most relevant available human agent.
 - Relevance should combine skill fit, active workload, and SLA pressure.
 
 5. Feedback Loop
 - Every handled case updates performance logs.
-- Logs improve future routing, confidence thresholds, and prompt quality.
+- Logs support KPI reporting, governance, and decision accountability.
 
 ## Practical Rules (Theoretical Policy Layer)
 
 ```text
-Rule 1: If objective data answer exists and confidence >= threshold, auto-respond.
-Rule 2: If confidence < threshold, route to human workflow.
-Rule 3: If more than one desk is required, orchestrate in parallel with one owner.
-Rule 4: If one desk is required, route to best-fit non-overloaded agent.
+Rule 1: If objective data answer exists, AI responds.
+Rule 2: If the client is not satisfied with AI response, route to a human agent.
+Rule 3: If more than one desk is required, AI orchestrates parallel desk tasks while one human owner stays accountable for the ticket.
+Rule 4: If one desk is required, route to best-fit non-overloaded human agent.
 Rule 5: Log all decisions for auditability and model improvement.
 ```
 
