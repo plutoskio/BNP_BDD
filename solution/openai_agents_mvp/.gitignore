@@ -2,3 +2,8 @@
 .env
 __pycache__/
 *.pyc
+email_adapter/google_client_secret.json
+email_adapter/google_token.json
+email_adapter/adapter_state.db
+email_adapter/adapter_state.db-shm
+email_adapter/adapter_state.db-wal

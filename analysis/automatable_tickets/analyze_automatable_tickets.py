@@ -9,6 +9,8 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
+from matplotlib.ticker import FuncFormatter
 import pandas as pd
 
 
@@ -17,6 +19,9 @@ DB_PATH = BASE_DIR / "hobart.db"
 OUTPUT_DIR = BASE_DIR / "analysis" / "automatable_tickets"
 OUTPUT_REPORT = OUTPUT_DIR / "automatable_tickets_report.md"
 OUTPUT_PIE = OUTPUT_DIR / "automatable_ticket_share_pie.png"
+OUTPUT_IMPACT = OUTPUT_DIR / "automatable_time_lost_impact.png"
+
+CHART_COLOR = "#01925c"
 
 
 def parse_hobart_date(series: pd.Series) -> pd.Series:
@@ -123,24 +128,85 @@ def run_analysis() -> None:
 
     automatable_count = len(automatable_df)
     automatable_pct_total = (automatable_count / total_tickets) * 100 if total_tickets else 0.0
-    avg_time_saved_days = time_df["resolution_days"].mean() if not time_df.empty else 0.0
-    total_time_saved_days = time_df["resolution_days"].sum() if not time_df.empty else 0.0
-    avg_time_saved_hours = avg_time_saved_days * 24.0
-    total_time_saved_hours = total_time_saved_days * 24.0
+    median_time_saved_days = time_df["resolution_days"].median() if not time_df.empty else 0.0
+    median_time_saved_hours = median_time_saved_days * 24.0
 
-    # Pie chart for % of total ticket population.
+    # Robust total time estimate to reduce outlier impact:
+    # total_time = number_of_tickets * median_duration
+    robust_total_time_saved_days = median_time_saved_days * len(time_df)
+    robust_total_time_saved_hours = robust_total_time_saved_days * 24.0
+    robust_total_time_saved_years = robust_total_time_saved_days / 365.0
+
+    # Pie chart for % of total ticket population (brand color palette).
+    secondary_slice = (*mcolors.to_rgb(CHART_COLOR), 0.22)
     plt.figure(figsize=(8, 8))
     plt.pie(
         [automatable_count, len(non_automatable_df)],
         labels=["Automatable Tickets", "Non-Automatable Tickets"],
         autopct="%1.1f%%",
         startangle=90,
-        colors=["#2d7dd2", "#b8bcc2"],
+        colors=[CHART_COLOR, secondary_slice],
+        wedgeprops={"edgecolor": "white", "linewidth": 1.2},
     )
     plt.title("Automatable Ticket Share of Total SR Population")
     plt.axis("equal")
     plt.tight_layout()
     plt.savefig(OUTPUT_PIE, dpi=300)
+    plt.close()
+
+    # Attention chart: visual impact of cycle-time lost.
+    fig, ax = plt.subplots(figsize=(12, 7))
+    fig.patch.set_facecolor("#0b1f18")
+    ax.set_facecolor("#0b1f18")
+
+    ax.barh(["Automatable ticket time loss"], [robust_total_time_saved_days], color=CHART_COLOR, height=0.55)
+    ax.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"{x/1_000_000:.1f}M"))
+    ax.grid(axis="x", alpha=0.15, color="white")
+    ax.set_xlabel("Days (millions)", color="white", fontsize=11)
+    ax.tick_params(colors="white")
+    for spine in ax.spines.values():
+        spine.set_color("#2e5f4f")
+
+    ax.set_title(
+        "Cycle-Time Lost in Automatable Tickets",
+        fontsize=20,
+        fontweight="bold",
+        color="white",
+        pad=14,
+    )
+
+    ax.text(
+        robust_total_time_saved_days * 0.50 if robust_total_time_saved_days > 0 else 0,
+        0,
+        f"{robust_total_time_saved_days/1_000_000:.2f}M days",
+        ha="center",
+        va="center",
+        fontsize=28,
+        fontweight="bold",
+        color="white",
+    )
+
+    ax.text(
+        robust_total_time_saved_days * 0.99 if robust_total_time_saved_days > 0 else 0,
+        -0.23,
+        f"{len(time_df):,} tickets × {median_time_saved_days:.2f} days (median)",
+        ha="right",
+        va="center",
+        fontsize=12,
+        color="white",
+    )
+    ax.text(
+        robust_total_time_saved_days * 0.99 if robust_total_time_saved_days > 0 else 0,
+        0.23,
+        f"Equivalent: {robust_total_time_saved_years:,.0f} years",
+        ha="right",
+        va="center",
+        fontsize=12,
+        color="white",
+    )
+
+    plt.tight_layout()
+    plt.savefig(OUTPUT_IMPACT, dpi=300)
     plt.close()
 
     with open(OUTPUT_REPORT, "w", encoding="utf-8") as f:
@@ -166,12 +232,17 @@ def run_analysis() -> None:
         f.write(f"- Automatable tickets: **{automatable_count:,}**\n")
         f.write(f"- Automatable share of total: **{automatable_pct_total:.2f}%**\n")
         f.write(f"- Automatable tickets with valid date pair for time estimate: **{len(time_df):,}**\n")
-        f.write(f"- Average time saved per automatable ticket (cycle-time proxy): **{avg_time_saved_days:.2f} days** (**{avg_time_saved_hours:.2f} hours**)\n")
-        f.write(f"- Total time saved (cycle-time proxy): **{total_time_saved_days:,.2f} days** (**{total_time_saved_hours:,.2f} hours**)\n\n")
+        f.write(f"- Median time saved per automatable ticket (cycle-time proxy): **{median_time_saved_days:.2f} days** (**{median_time_saved_hours:.2f} hours**)\n")
+        f.write(f"- Robust total time saved (`tickets × median`): **{robust_total_time_saved_days:,.2f} days** (**{robust_total_time_saved_hours:,.2f} hours**)\n")
+        f.write(f"- Robust total time saved in years: **{robust_total_time_saved_years:,.2f} years**\n\n")
+
+        f.write("## Visuals\n")
+        f.write("- Share chart: `automatable_ticket_share_pie.png`\n")
+        f.write("- Impact chart: `automatable_time_lost_impact.png`\n\n")
 
         f.write("## Important Assumption\n")
-        f.write("Time saved is estimated as historical ticket resolution duration (`closingdate_parsed - creationdate_parsed`) for eligible tickets.\n")
-        f.write("This is a **cycle-time reduction proxy**, not direct labor time.\n")
+        f.write("Time saved is estimated from historical ticket resolution duration (`closingdate_parsed - creationdate_parsed`) for eligible tickets.\n")
+        f.write("To reduce outlier skew, the total impact uses **number of tickets × median duration** (not the raw sum of all durations).\n")
 
 
 if __name__ == "__main__":

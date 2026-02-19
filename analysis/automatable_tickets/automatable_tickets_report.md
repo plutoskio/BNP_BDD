@@ -21,9 +21,14 @@ A ticket is labeled `automatable` when all of the following are true:
 - Automatable tickets: **2,160,544**
 - Automatable share of total: **45.69%**
 - Automatable tickets with valid date pair for time estimate: **1,999,790**
-- Average time saved per automatable ticket (cycle-time proxy): **6.77 days** (**162.57 hours**)
-- Total time saved (cycle-time proxy): **13,546,284.82 days** (**325,110,835.68 hours**)
+- Median time saved per automatable ticket (cycle-time proxy): **0.04 days** (**0.93 hours**)
+- Robust total time saved (`tickets × median`): **77,214.11 days** (**1,853,138.73 hours**)
+- Robust total time saved in years: **211.55 years**
+
+## Visuals
+- Share chart: `automatable_ticket_share_pie.png`
+- Impact chart: `automatable_time_lost_impact.png`
 
 ## Important Assumption
-Time saved is estimated as historical ticket resolution duration (`closingdate_parsed - creationdate_parsed`) for eligible tickets.
-This is a **cycle-time reduction proxy**, not direct labor time.
+Time saved is estimated from historical ticket resolution duration (`closingdate_parsed - creationdate_parsed`) for eligible tickets.
+To reduce outlier skew, the total impact uses **number of tickets × median duration** (not the raw sum of all durations).

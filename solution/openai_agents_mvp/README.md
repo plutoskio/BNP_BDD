@@ -125,17 +125,40 @@ PY
 
 If this fails with `invalid_api_key`, rotate/regenerate the key and retry.
 
-## Email (later)
+## Email (Gmail OAuth)
 
-Yes, this can send/receive email later.
-- Send: SMTP or provider API (SendGrid/Mailgun/SES).
-- Receive: IMAP poller or inbound webhook.
-- Integration point: map inbound email into `/inbound` payload and use returned `reply_subject`/`reply_body` for outbound.
+Gmail OAuth transport is now included.
+
+One-time OAuth consent:
+
+```bash
+bash /Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/scripts/gmail_oauth_setup.sh
+```
+
+Run worker once (process unread inbox batch):
+
+```bash
+bash /Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/scripts/gmail_worker_once.sh
+```
+
+Run worker continuously:
+
+```bash
+bash /Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/scripts/gmail_worker_loop.sh
+```
+
+Prerequisites:
+- Gmail API enabled in Google Cloud project.
+- Desktop OAuth client secret JSON downloaded to:
+  - `/Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/email_adapter/google_client_secret.json`
+- `.env` includes Gmail adapter variables from `.env.example`.
+- API server running on `ROUTER_API_BASE_URL` (default `http://127.0.0.1:8000`).
 
 ## Explication
 
 - `/Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/explication/00_index.md`
 - `/Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/debug_queries.sql`
+- `/Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/explication/05_gmail_oauth_adapter.md`
 
 ## Security Notes
 
