@@ -352,6 +352,93 @@ class RoutingService:
         rows = conn.execute("SELECT desk_id, desk_code FROM desks;").fetchall()
         return {str(row["desk_code"]): int(row["desk_id"]) for row in rows}
 
+    @staticmethod
+    def _desk_details_map(conn: sqlite3.Connection) -> dict[int, dict[str, str]]:
+        rows = conn.execute("SELECT desk_id, desk_code, desk_name FROM desks;").fetchall()
+        details: dict[int, dict[str, str]] = {}
+        for row in rows:
+            details[int(row["desk_id"])] = {
+                "code": str(row["desk_code"]),
+                "name": str(row["desk_name"]),
+            }
+        return details
+
+    @staticmethod
+    def _desk_label(desk_details: dict[int, dict[str, str]], desk_id: int) -> str:
+        info = desk_details.get(desk_id)
+        if info is None:
+            return f"Desk {desk_id}"
+        return f"{info['name']} ({info['code']})"
+
+    @staticmethod
+    def _owner_label(owner_code: str | None, owner_name: str | None, owner_email: str | None) -> str:
+        if owner_code is None and owner_name is None and owner_email is None:
+            return "Unassigned"
+
+        display_name = owner_name or owner_code or "Owner"
+        if owner_code and owner_email:
+            return f"{display_name} ({owner_code}, {owner_email})"
+        if owner_code:
+            return f"{display_name} ({owner_code})"
+        if owner_email:
+            return f"{display_name} ({owner_email})"
+        return display_name
+
+    @staticmethod
+    def _tree_block(lines: list[str]) -> str:
+        return "Routing Tree (current position)\n" + "\n".join(lines)
+
+    @classmethod
+    def _tree_for_automated_response(cls) -> str:
+        return cls._tree_block(
+            [
+                "[1] Data directly available? YES",
+                "    -> [2] AI response using internal database  >> CURRENT",
+                "        -> [3] Client confirmation pending",
+                "           Reply with NOT RESOLVED to trigger human handoff.",
+            ]
+        )
+
+    @classmethod
+    def _tree_for_single_desk_handoff(cls, owner_label: str, desk_label: str) -> str:
+        return cls._tree_block(
+            [
+                "[1] Data directly available? NO",
+                "    -> [2] Multiple desks required? NO",
+                "        -> [3] Human owner assignment  >> CURRENT",
+                f"           Owner: {owner_label}",
+                f"           Desk: {desk_label}",
+            ]
+        )
+
+    @classmethod
+    def _tree_for_multi_desk_handoff(
+        cls,
+        owner_label: str,
+        planned_desk_flow: str,
+    ) -> str:
+        return cls._tree_block(
+            [
+                "[1] Data directly available? NO",
+                "    -> [2] Multiple desks required? YES",
+                "        -> [3] AI multi-desk workflow coordinator  >> CURRENT",
+                f"           Accountable owner: {owner_label}",
+                f"           Planned desk flow: {planned_desk_flow}",
+            ]
+        )
+
+    @classmethod
+    def _tree_for_not_resolved_handoff(cls, owner_label: str, desk_label: str) -> str:
+        return cls._tree_block(
+            [
+                "[1] AI response previously sent",
+                "    -> [2] Client satisfied? NO",
+                "        -> [3] Human owner handoff  >> CURRENT",
+                f"           Owner: {owner_label}",
+                f"           Desk: {desk_label}",
+            ]
+        )
+
     def _insert_trace(
         self,
         conn: sqlite3.Connection,
@@ -483,13 +570,18 @@ class RoutingService:
         owner_agent = None
         owner_agent_id: int | None = None
         owner_agent_code: str | None = None
+        owner_agent_name: str | None = None
         owner_email: str | None = None
 
         if automatable_final == 0:
             owner_agent = self._best_owner_agent(conn, int(rule["primary_desk_id"]))
             owner_agent_id = int(owner_agent["agent_id"])
             owner_agent_code = str(owner_agent["agent_code"])
+            owner_agent_name = str(owner_agent["full_name"])
             owner_email = str(owner_agent["email"])
+
+        desk_details = self._desk_details_map(conn)
+        primary_desk_label = self._desk_label(desk_details, int(rule["primary_desk_id"]))
 
         if automatable_final == 1:
             status = "RESOLVED"
@@ -618,11 +710,11 @@ class RoutingService:
                 "2) AI response using internal database: SENT",
                 "3) Client satisfied: assumed YES (initial request)",
             ]
+            tree_block = self._tree_for_automated_response()
             response_body = (
                 f"Hello {client['client_name']},\n\n"
                 f"{data_text}\n\n"
-                "Decision Path:\n"
-                + "\n".join(decision_path)
+                + tree_block
                 + f"\n\nTicket Reference: {ticket_ref}\n"
                 "If this does not resolve your request, reply with NOT RESOLVED."
             )
@@ -726,12 +818,14 @@ class RoutingService:
                     "3) AI multi-desk workflow coordinator: PLAN_CREATED",
                     f"4) Human owner assigned: {owner_agent_code}",
                 ]
+                owner_label = self._owner_label(owner_agent_code, owner_agent_name, owner_email)
+                planned_desk_flow = " -> ".join(self._desk_label(desk_details, desk_id) for desk_id in sequence_ids)
+                tree_block = self._tree_for_multi_desk_handoff(owner_label, planned_desk_flow)
                 response_body = (
                     f"Hello {client['client_name']},\n\n"
                     "Your request requires coordinated processing across multiple desks.\n"
-                    f"Accountable owner: {owner_agent_code} ({owner_email}).\n\n"
-                    "Decision Path:\n"
-                    + "\n".join(decision_path)
+                    "\n"
+                    + tree_block
                     + f"\n\nTicket Reference: {ticket_ref}\n"
                     "You will receive progress updates as each desk step completes."
                 )
@@ -775,12 +869,13 @@ class RoutingService:
                     "2) Requires multiple desks: NO",
                     f"3) Best-fit human owner assigned: {owner_agent_code}",
                 ]
+                owner_label = self._owner_label(owner_agent_code, owner_agent_name, owner_email)
+                tree_block = self._tree_for_single_desk_handoff(owner_label, primary_desk_label)
                 response_body = (
                     f"Hello {client['client_name']},\n\n"
                     "Your request requires human review.\n"
-                    f"Assigned owner: {owner_agent_code} ({owner_email}).\n\n"
-                    "Decision Path:\n"
-                    + "\n".join(decision_path)
+                    "\n"
+                    + tree_block
                     + f"\n\nTicket Reference: {ticket_ref}"
                 )
 
@@ -877,7 +972,10 @@ class RoutingService:
         owner = self._best_owner_agent(conn, int(ticket["primary_desk_id"]))
         owner_id = int(owner["agent_id"])
         owner_code = str(owner["agent_code"])
+        owner_name = str(owner["full_name"])
         owner_email = str(owner["email"])
+        desk_details = self._desk_details_map(conn)
+        primary_desk_label = self._desk_label(desk_details, int(ticket["primary_desk_id"]))
         now = self._now_ts()
 
         conn.execute(
@@ -942,14 +1040,14 @@ class RoutingService:
             related_trace_id=trace_escalation,
         )
 
+        owner_label = self._owner_label(owner_code, owner_name, owner_email)
+        tree_block = self._tree_for_not_resolved_handoff(owner_label, primary_desk_label)
         reply_body = (
             f"Hello {client['client_name']},\n\n"
             "Thanks for your update. Your ticket has been escalated to a human owner.\n"
-            f"Assigned owner: {owner_code} ({owner_email})\n\n"
-            "Decision Path:\n"
-            "1) Client satisfied: NO\n"
-            "2) Human handoff: COMPLETED\n"
-            f"\nTicket Reference: {ticket_ref}"
+            "\n"
+            + tree_block
+            + f"\n\nTicket Reference: {ticket_ref}"
         )
 
         self._insert_email_message(
