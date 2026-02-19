@@ -140,7 +140,7 @@ def run_analysis() -> None:
     # Pie chart for % of total ticket population (brand color palette).
     secondary_slice = (*mcolors.to_rgb(CHART_COLOR), 0.22)
     plt.figure(figsize=(8, 8))
-    plt.pie(
+    wedges, texts, autotexts = plt.pie(
         [automatable_count, len(non_automatable_df)],
         labels=["Automatable Tickets", "Non-Automatable Tickets"],
         autopct="%1.1f%%",
@@ -148,6 +148,15 @@ def run_analysis() -> None:
         colors=[CHART_COLOR, secondary_slice],
         wedgeprops={"edgecolor": "white", "linewidth": 1.2},
     )
+    for text in texts:
+        text.set_fontsize(12)
+    for autotext in autotexts:
+        autotext.set_fontsize(28)
+        autotext.set_fontweight("bold")
+        autotext.set_color("white")
+        autotext.set_bbox(
+            {"boxstyle": "round,pad=0.22", "facecolor": "#0b1f18", "edgecolor": "none", "alpha": 0.65}
+        )
     plt.title("Automatable Ticket Share of Total SR Population")
     plt.axis("equal")
     plt.tight_layout()

@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BNP Ticket Management Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">BNP PARIBAS | Customer Service Operations</p>
+          <h1>Ticket Management Command Center</h1>
+          <p class="subtext">
+            Read-only operational dashboard with live ticket routing, desk ownership, and exchange visibility.
+          </p>
+        </div>
+        <div class="live-chip" aria-live="polite">
+          <span class="live-dot"></span>
+          <span>Live</span>
+          <strong id="last-refresh">Waiting...</strong>
+        </div>
+      </header>
+
+      <section class="kpi-grid" id="kpi-grid">
+        <article class="panel kpi-card">
+          <p class="kpi-label">Total Tickets</p>
+          <p class="kpi-value" id="kpi-total">-</p>
+          <p class="kpi-sub">All-time volume</p>
+        </article>
+        <article class="panel kpi-card">
+          <p class="kpi-label">Active Workload</p>
+          <p class="kpi-value" id="kpi-active">-</p>
+          <p class="kpi-sub">Open / In progress / Escalated</p>
+        </article>
+        <article class="panel kpi-card">
+          <p class="kpi-label">Automatable Rate</p>
+          <p class="kpi-value" id="kpi-auto-rate">-</p>
+          <p class="kpi-sub" id="kpi-auto-count">-</p>
+        </article>
+        <article class="panel kpi-card">
+          <p class="kpi-label">Multi-Desk Tickets</p>
+          <p class="kpi-value" id="kpi-multi">-</p>
+          <p class="kpi-sub">Cross-desk coordination cases</p>
+        </article>
+        <article class="panel kpi-card">
+          <p class="kpi-label">Avg First Response</p>
+          <p class="kpi-value" id="kpi-fr">-</p>
+          <p class="kpi-sub">Minutes from creation</p>
+        </article>
+        <article class="panel kpi-card">
+          <p class="kpi-label">Avg Resolution</p>
+          <p class="kpi-value" id="kpi-res">-</p>
+          <p class="kpi-sub">Hours to resolve</p>
+        </article>
+        <article class="panel kpi-card">
+          <p class="kpi-label">Active Over 24h</p>
+          <p class="kpi-value" id="kpi-over24">-</p>
+          <p class="kpi-sub">Potential delay risk</p>
+        </article>
+        <article class="panel kpi-card">
+          <p class="kpi-label">Inbound (15m)</p>
+          <p class="kpi-value" id="kpi-inbound">-</p>
+          <p class="kpi-sub">Recent client traffic</p>
+        </article>
+      </section>
+
+      <section class="panel filters">
+        <div class="filter-row">
+          <input id="filter-query" class="control" type="search" placeholder="Search ticket ref, email, subject, intent..." />
+          <select id="filter-status" class="control">
+            <option value="">All statuses</option>
+            <option value="OPEN">OPEN</option>
+            <option value="IN_PROGRESS">IN_PROGRESS</option>
+            <option value="WAITING_CLIENT">WAITING_CLIENT</option>
+            <option value="ESCALATED">ESCALATED</option>
+            <option value="RESOLVED">RESOLVED</option>
+            <option value="CLOSED">CLOSED</option>
+          </select>
+          <select id="filter-desk" class="control">
+            <option value="">All desks</option>
+          </select>
+          <button id="manual-refresh" class="btn" type="button">Refresh now</button>
+        </div>
+      </section>
+
+      <main class="main-grid">
+        <section class="panel tickets-panel">
+          <div class="panel-header">
+            <h2>Tickets</h2>
+            <p class="muted" id="ticket-count">0 records</p>
+          </div>
+          <div class="table-wrap">
+            <table class="ticket-table" aria-label="Tickets table">
+              <thead>
+                <tr>
+                  <th>Ticket</th>
+                  <th>Status</th>
+                  <th>Client</th>
+                  <th>Intent</th>
+                  <th>Owner</th>
+                  <th>Current Desk</th>
+                  <th>Age</th>
+                  <th>Last Event</th>
+                </tr>
+              </thead>
+              <tbody id="tickets-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <section class="panel sidebar-panel">
+            <div class="panel-header">
+              <h3>Desk Operations</h3>
+              <p class="muted">Queue by current desk</p>
+            </div>
+            <ul class="stat-list" id="desks-list"></ul>
+          </section>
+
+          <section class="panel sidebar-panel">
+            <div class="panel-header">
+              <h3>Agent Load</h3>
+              <p class="muted">Highest load first</p>
+            </div>
+            <ul class="stat-list" id="agents-list"></ul>
+          </section>
+
+          <section class="panel sidebar-panel">
+            <div class="panel-header">
+              <h3>Recent Exchange</h3>
+              <p class="muted">Latest inbound/outbound</p>
+            </div>
+            <ul class="stat-list" id="events-list"></ul>
+          </section>
+        </aside>
+      </main>
+
+      <section class="panel detail-panel">
+        <div class="panel-header">
+          <h2>Ticket Detail</h2>
+          <p class="muted" id="detail-ticket-ref">No ticket selected</p>
+        </div>
+
+        <p class="empty" id="detail-empty">Select a ticket row to inspect routing path, desk journey, assignments, and messages.</p>
+
+        <div id="detail-content" hidden>
+          <div class="detail-grid">
+            <article class="detail-card">
+              <h4>Snapshot</h4>
+              <div class="snapshot-grid" id="detail-snapshot"></div>
+            </article>
+
+            <article class="detail-card">
+              <h4>Routing Trace</h4>
+              <ul class="detail-list" id="detail-trace"></ul>
+            </article>
+
+            <article class="detail-card">
+              <h4>Desk Journey</h4>
+              <ul class="detail-list" id="detail-desk-journey"></ul>
+            </article>
+
+            <article class="detail-card">
+              <h4>Assignments</h4>
+              <ul class="detail-list" id="detail-assignments"></ul>
+            </article>
+          </div>
+
+          <article class="detail-card full">
+            <h4>Email Exchange</h4>
+            <ul class="exchange-list" id="detail-messages"></ul>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
