@@ -7,6 +7,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 
+BASE_DIR = Path(__file__).resolve().parent.parent
 DEFAULT_DB_PATH = Path("/Users/milo/Desktop/BNP_BDD/solution/mvp_routing_database/mvp_routing.db")
 DEFAULT_PROMPT_PATH = Path("/Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/prompts/intent_classifier_system.txt")
 
@@ -23,7 +24,8 @@ class Settings:
 
 
 def load_settings() -> Settings:
-    load_dotenv()
+    env_file = BASE_DIR / ".env"
+    load_dotenv(dotenv_path=env_file if env_file.exists() else None, override=False)
 
     db_path = Path(os.getenv("DB_PATH", str(DEFAULT_DB_PATH))).expanduser()
     prompt_path = Path(os.getenv("PROMPT_PATH", str(DEFAULT_PROMPT_PATH))).expanduser()

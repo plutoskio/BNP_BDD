@@ -50,7 +50,6 @@ class IntentClassifier:
                 instructions=instructions,
                 model=self._model,
                 model_settings=ModelSettings(
-                    temperature=0,
                     reasoning=Reasoning(effort=self._reasoning_effort),
                     verbosity="medium",
                 ),

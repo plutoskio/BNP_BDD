@@ -38,11 +38,11 @@ def _parse_payload(args: argparse.Namespace) -> InboundMessage:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="OpenAI Agents + SQLite routing MVP")
-    parser.add_argument("--db-path", help="Override DB path")
 
     sub = parser.add_subparsers(dest="command", required=True)
 
     inbound = sub.add_parser("inbound", help="Process a new inbound request")
+    inbound.add_argument("--db-path", help="Override DB path")
     inbound.add_argument("--payload-b64", help="Base64-encoded JSON payload")
     inbound.add_argument("--from-email")
     inbound.add_argument("--subject")
@@ -51,6 +51,7 @@ def build_parser() -> argparse.ArgumentParser:
     inbound.add_argument("--channel", default="EMAIL")
 
     status = sub.add_parser("status", help="Fetch ticket status and decision path")
+    status.add_argument("--db-path", help="Override DB path")
     status.add_argument("--ticket-ref", required=True)
 
     return parser
