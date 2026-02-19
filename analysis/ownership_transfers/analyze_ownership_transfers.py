@@ -188,6 +188,43 @@ def run_analysis() -> None:
         conn,
     )
 
+    duration_median_binary = pd.read_sql_query(
+        """
+        WITH labeled AS (
+            SELECT
+                CASE
+                    WHEN COALESCE(ot.owner_transfer_events, 0) > 0
+                    THEN 1
+                    ELSE 0
+                END AS has_owner_transfer,
+                cs.duration_hours
+            FROM closed_scope cs
+            LEFT JOIN owner_transfer_counts ot ON cs.sr_id = ot.sr_id
+            WHERE cs.duration_hours IS NOT NULL
+              AND cs.duration_hours >= 0
+        ),
+        ordered AS (
+            SELECT
+                has_owner_transfer,
+                duration_hours,
+                ROW_NUMBER() OVER (
+                    PARTITION BY has_owner_transfer
+                    ORDER BY duration_hours
+                ) AS rn,
+                COUNT(*) OVER (PARTITION BY has_owner_transfer) AS cnt
+            FROM labeled
+        )
+        SELECT
+            has_owner_transfer,
+            AVG(duration_hours) AS median_duration_hours
+        FROM ordered
+        WHERE rn IN ((cnt + 1) / 2, (cnt + 2) / 2)
+        GROUP BY has_owner_transfer
+        ORDER BY has_owner_transfer;
+        """,
+        conn,
+    )
+
     duration_bucket_summary = pd.read_sql_query(
         """
         SELECT
@@ -210,6 +247,54 @@ def run_analysis() -> None:
         LEFT JOIN owner_transfer_counts ot ON cs.sr_id = ot.sr_id
         WHERE cs.duration_hours IS NOT NULL
           AND cs.duration_hours >= 0
+        GROUP BY transfer_bucket
+        ORDER BY
+            CASE transfer_bucket
+                WHEN '0' THEN 0
+                WHEN '1' THEN 1
+                WHEN '2' THEN 2
+                WHEN '3' THEN 3
+                WHEN '4' THEN 4
+                ELSE 5
+            END;
+        """,
+        conn,
+    )
+
+    duration_bucket_medians = pd.read_sql_query(
+        """
+        WITH labeled AS (
+            SELECT
+                CASE
+                    WHEN COALESCE(ot.owner_transfer_events, 0) = 0 THEN '0'
+                    WHEN COALESCE(ot.owner_transfer_events, 0) = 1 THEN '1'
+                    WHEN COALESCE(ot.owner_transfer_events, 0) = 2 THEN '2'
+                    WHEN COALESCE(ot.owner_transfer_events, 0) = 3 THEN '3'
+                    WHEN COALESCE(ot.owner_transfer_events, 0) = 4 THEN '4'
+                    ELSE '5+'
+                END AS transfer_bucket,
+                cs.duration_hours
+            FROM closed_scope cs
+            LEFT JOIN owner_transfer_counts ot ON cs.sr_id = ot.sr_id
+            WHERE cs.duration_hours IS NOT NULL
+              AND cs.duration_hours >= 0
+        ),
+        ordered AS (
+            SELECT
+                transfer_bucket,
+                duration_hours,
+                ROW_NUMBER() OVER (
+                    PARTITION BY transfer_bucket
+                    ORDER BY duration_hours
+                ) AS rn,
+                COUNT(*) OVER (PARTITION BY transfer_bucket) AS cnt
+            FROM labeled
+        )
+        SELECT
+            transfer_bucket,
+            AVG(duration_hours) AS median_duration_hours
+        FROM ordered
+        WHERE rn IN ((cnt + 1) / 2, (cnt + 2) / 2)
         GROUP BY transfer_bucket
         ORDER BY
             CASE transfer_bucket
@@ -318,11 +403,15 @@ def run_analysis() -> None:
     duration_summary["tickets_over_72h_pct"] = (duration_summary["tickets_over_72h"] / duration_summary["tickets"]) * 100.0
     duration_summary["tickets_over_168h_pct"] = (duration_summary["tickets_over_168h"] / duration_summary["tickets"]) * 100.0
     duration_summary["avg_duration_days_capped_168"] = duration_summary["avg_duration_hours_capped_168"] / 24.0
+    duration_summary = duration_summary.merge(duration_median_binary, on="has_owner_transfer", how="left")
+    duration_summary["median_duration_days"] = duration_summary["median_duration_hours"] / 24.0
 
     duration_summary_out = duration_summary[
         [
             "group",
             "tickets",
+            "median_duration_hours",
+            "median_duration_days",
             "avg_duration_hours",
             "avg_duration_days",
             "avg_duration_hours_capped_168",
@@ -351,6 +440,10 @@ def run_analysis() -> None:
         duration_bucket_summary["tickets_over_168h"] / duration_bucket_summary["tickets"]
     ) * 100.0
     duration_bucket_summary["avg_duration_days_capped_168"] = duration_bucket_summary["avg_duration_hours_capped_168"] / 24.0
+    duration_bucket_summary = duration_bucket_summary.merge(
+        duration_bucket_medians, on="transfer_bucket", how="left"
+    )
+    duration_bucket_summary["median_duration_days"] = duration_bucket_summary["median_duration_hours"] / 24.0
     duration_bucket_summary.to_csv(OUTPUT_DURATION_BUCKETS_CSV, index=False)
 
     # Effect size + significance for binary split.
@@ -457,46 +550,50 @@ def run_analysis() -> None:
         else np.nan
     )
 
-    # Chart 3: average duration days, transfer vs no transfer.
+    # Chart 3: median duration days, transfer vs no transfer.
     plt.figure(figsize=(9, 6))
     dx = np.arange(len(duration_summary_out))
-    dy = duration_summary_out["avg_duration_days"].to_numpy()
+    dy = duration_summary_out["median_duration_days"].to_numpy()
     plt.bar(dx, dy, color=["#1f77b4", "#ff7f0e"], width=0.62)
     plt.xticks(dx, duration_summary_out["group"], rotation=0)
-    plt.ylabel("Average Duration (Days)")
-    plt.title("Owner Changes vs Duration (Closed Tickets)", fontsize=13, fontweight="bold")
+    plt.ylabel("Median Duration (Days)")
+    plt.title("Owner Changes vs Median Duration (Closed Tickets)", fontsize=13, fontweight="bold")
     plt.grid(axis="y", alpha=0.25)
-    for i, row in enumerate(duration_summary_out.itertuples(index=False)):
+    for i, v in enumerate(dy):
         plt.text(
             i,
-            dy[i] + max(dy) * 0.03 if len(dy) else 0.0,
-            f"{row.tickets_over_72h_pct:.2f}% > 72h",
+            v + max(dy) * 0.025 if len(dy) else 0.0,
+            f"{v:.2f} d",
             ha="center",
             va="bottom",
-            fontsize=9,
+            fontsize=10,
+            fontweight="bold",
+            bbox=dict(boxstyle="round,pad=0.2", facecolor="white", edgecolor="none", alpha=0.9),
         )
     plt.tight_layout()
     plt.savefig(OUTPUT_DURATION_BINARY_PNG, dpi=300)
     plt.close()
 
-    # Chart 4: average duration days by transfer count bucket.
+    # Chart 4: median duration days by transfer count bucket.
     plt.figure(figsize=(10, 6))
     dbx = np.arange(len(duration_bucket_summary))
-    dby = duration_bucket_summary["avg_duration_days"].to_numpy()
+    dby = duration_bucket_summary["median_duration_days"].to_numpy()
     plt.bar(dbx, dby, color="#2f6ea3", width=0.7)
     plt.xticks(dbx, duration_bucket_summary["transfer_bucket"])
-    plt.ylabel("Average Duration (Days)")
+    plt.ylabel("Median Duration (Days)")
     plt.xlabel("Ownership Transfer Count Bucket")
-    plt.title("Average Duration by Ownership Transfer Count", fontsize=13, fontweight="bold")
+    plt.title("Median Duration by Ownership Transfer Count", fontsize=13, fontweight="bold")
     plt.grid(axis="y", alpha=0.25)
     for i, v in enumerate(dby):
         plt.text(
             i,
-            v + max(dby) * 0.015 if len(dby) else 0.0,
+            v * 0.5 if v > 0 else 0.0,
             f"{v:.2f}",
             ha="center",
-            va="bottom",
-            fontsize=9,
+            va="center",
+            fontsize=14,
+            fontweight="bold",
+            color="white",
         )
     plt.tight_layout()
     plt.savefig(OUTPUT_DURATION_BUCKET_PNG, dpi=300)
