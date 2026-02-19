@@ -7,3 +7,7 @@ email_adapter/google_token.json
 email_adapter/adapter_state.db
 email_adapter/adapter_state.db-shm
 email_adapter/adapter_state.db-wal
+email_adapter/mailslurp_state.db
+email_adapter/mailslurp_state.db-shm
+email_adapter/mailslurp_state.db-wal
+email_adapter/mailslurp_outbox.jsonl

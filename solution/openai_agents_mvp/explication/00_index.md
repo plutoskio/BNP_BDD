@@ -5,3 +5,4 @@
 - `03_sql_contract.md`: Read/write SQL contract by table and field.
 - `04_operational_playbook.md`: How to run, validate, and troubleshoot.
 - `05_gmail_oauth_adapter.md`: Gmail OAuth setup and worker operation for real email transport.
+- `06_mailslurp_adapter.md`: MailSlurp setup and worker operation for easiest MVP email transport.

@@ -1,6 +1,6 @@
 # OpenAI Agents SDK + SQLite Routing MVP
 
-This package is a clean-slate implementation of your routing logic without email infrastructure.
+This package is a clean-slate implementation of your routing logic with optional email adapters.
 
 It does:
 - OpenAI Agents SDK intent classification (`gpt-5.2-2025-12-11` default).
@@ -11,8 +11,8 @@ It does:
 - CLI mode and HTTP API mode.
 
 It does not yet do:
-- real mailbox polling (IMAP)
-- real outbound email delivery (SMTP/API)
+- production-grade retry/queueing and dead-letter handling for email delivery
+- enterprise mailbox governance hardening (auditing, rotation policy, monitoring)
 
 ## Architecture
 
@@ -125,40 +125,58 @@ PY
 
 If this fails with `invalid_api_key`, rotate/regenerate the key and retry.
 
-## Email (Gmail OAuth)
+## Email (MailSlurp - Recommended)
 
-Gmail OAuth transport is now included.
+MailSlurp is the fastest MVP transport (no OAuth flow).
 
-One-time OAuth consent:
+Create or fetch a dedicated inbox:
 
 ```bash
-bash /Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/scripts/gmail_oauth_setup.sh
+bash /Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/scripts/mailslurp_setup.sh
 ```
 
-Run worker once (process unread inbox batch):
+This returns `email_address` (your test inbox).
+
+Run worker once:
 
 ```bash
-bash /Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/scripts/gmail_worker_once.sh
+bash /Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/scripts/mailslurp_worker_once.sh
 ```
 
 Run worker continuously:
 
 ```bash
-bash /Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/scripts/gmail_worker_loop.sh
+bash /Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/scripts/mailslurp_worker_loop.sh
 ```
 
 Prerequisites:
-- Gmail API enabled in Google Cloud project.
-- Desktop OAuth client secret JSON downloaded to:
-  - `/Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/email_adapter/google_client_secret.json`
-- `.env` includes Gmail adapter variables from `.env.example`.
+- `.env` contains `MAILSLURP_API_KEY`.
+- `.env` includes MailSlurp variables from `.env.example`.
 - API server running on `ROUTER_API_BASE_URL` (default `http://127.0.0.1:8000`).
+
+Important config:
+- `MAILSLURP_SEND_MODE=auto` (default): try live send; if provider blocks send, keep processing and log attempted reply.
+- `MAILSLURP_SEND_MODE=live`: strict mode; send failures are treated as failures.
+- `MAILSLURP_SEND_MODE=dry_run`: never send; write attempted outbound payloads to `MAILSLURP_OUTBOX_LOG`.
+
+Free-tier note:
+- Some MailSlurp plans allow receive/poll but block send. Use `MAILSLURP_SEND_MODE=auto` or `dry_run` for MVP demos.
+
+## Email (Gmail OAuth - Optional)
+
+Gmail OAuth transport is also available if you prefer Gmail.
+
+```bash
+bash /Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/scripts/gmail_oauth_setup.sh
+bash /Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/scripts/gmail_worker_once.sh
+```
 
 ## Explication
 
 - `/Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/explication/00_index.md`
 - `/Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/debug_queries.sql`
 - `/Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/explication/05_gmail_oauth_adapter.md`
+- `/Users/milo/Desktop/BNP_BDD/solution/openai_agents_mvp/explication/06_mailslurp_adapter.md`
 
 ## Security Notes
 
