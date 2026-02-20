@@ -8,6 +8,8 @@ This file lists test-ready client personas mapped in `/Users/milo/Desktop/BNP_BD
 - Milo: `mcardona@albertschool.com` (`CL0003`)
 - Jean: `jleclerc@albertschool.com` (`CL0004`)
 - Matheo: `mvicente@albertschool.com` (`CL0005`)
+- Suzana: `suzana.tadic@bnpparibas.com` (`CL0101`)
+- William: `william.aumont@bnpparibas.com` (`CL0102`)
 
 ## Curated Trade Refs (safe for direct automated reply)
 - Robin (`CL0001`): `TRD910101`, `TRD910102`, `TRD910103`, `TRD910104`
@@ -15,6 +17,8 @@ This file lists test-ready client personas mapped in `/Users/milo/Desktop/BNP_BD
 - Milo (`CL0003`): `TRD910301`, `TRD910302`, `TRD910303`, `TRD910304`
 - Jean (`CL0004`): `TRD910401`, `TRD910402`, `TRD910403`, `TRD910404`
 - Matheo (`CL0005`): `TRD910501`, `TRD910502`, `TRD910503`, `TRD910504`
+- Suzana (`CL0101`): `TRD910601`, `TRD910602`, `TRD910603`, `TRD910604`
+- William (`CL0102`): `TRD910701`, `TRD910702`, `TRD910703`, `TRD910704`
 
 ## Example Test Email
 - Subject: `Trade status check TRD910501`

@@ -134,12 +134,6 @@ def api_overview() -> dict[str, Any]:
                 ) AS active_over_24h,
                 AVG(
                     CASE
-                        WHEN first_response_at IS NOT NULL
-                        THEN (julianday(first_response_at) - julianday(created_at)) * 24.0 * 60.0
-                    END
-                ) AS avg_first_response_min,
-                AVG(
-                    CASE
                         WHEN resolved_at IS NOT NULL
                         THEN (julianday(resolved_at) - julianday(created_at)) * 24.0
                     END
@@ -168,7 +162,6 @@ def api_overview() -> dict[str, Any]:
         "automatable_rate_pct": round((automatable_tickets / total_tickets * 100.0), 1) if total_tickets else 0.0,
         "multi_desk_tickets": int(totals["multi_desk_tickets"] or 0),
         "active_over_24h": int(totals["active_over_24h"] or 0),
-        "avg_first_response_min": round(float(totals["avg_first_response_min"] or 0.0), 1),
         "avg_resolution_hours": round(float(totals["avg_resolution_hours"] or 0.0), 2),
         "inbound_last_15m": int(inbound_recent["inbound_last_15m"] or 0),
         "generated_at": datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S UTC"),

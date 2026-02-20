@@ -693,19 +693,21 @@ def seed_tickets_and_ops(
             priority = rng.choices(["LOW", "MEDIUM"], weights=[0.42, 0.58], k=1)[0]
 
         created_at = random_dt(rng, 140, 0)
-        first_response_at = created_at + timedelta(minutes=(rng.randint(6, 40) if automatable else rng.randint(20, 210)))
+        first_response_at = created_at + timedelta(
+            minutes=(rng.randint(3, 15) if automatable else rng.randint(7, 25))
+        )
 
         if status in {"RESOLVED", "CLOSED"}:
-            if automatable and rng.random() < 0.84:
-                res_hours = rng.uniform(0.2, 10.0)
-            elif requires_multi:
-                res_hours = rng.uniform(24.0, 300.0)
-            else:
-                res_hours = rng.uniform(4.0, 108.0)
-            resolved_at = created_at + timedelta(hours=res_hours)
+            # MVP demo target: keep overall resolution around 30-60 minutes.
+            res_minutes = rng.randint(30, 60)
+            resolved_at = created_at + timedelta(minutes=res_minutes)
             if resolved_at <= first_response_at:
-                resolved_at = first_response_at + timedelta(minutes=rng.randint(10, 150))
-            closed_at = resolved_at + timedelta(hours=rng.uniform(0.5, 48.0)) if status == "CLOSED" else None
+                resolved_at = first_response_at + timedelta(minutes=rng.randint(3, 12))
+            closed_at = (
+                resolved_at + timedelta(minutes=rng.randint(2, 18))
+                if status == "CLOSED"
+                else None
+            )
         else:
             resolved_at = None
             closed_at = None
@@ -959,7 +961,7 @@ def seed_tickets_and_ops(
         hop_id += 1
 
         hop_seq = 2
-        hop_time = created_at + timedelta(hours=1)
+        hop_time = created_at + timedelta(minutes=12)
         for idx in range(1, len(plan_desks)):
             hop_rows.append(
                 (
@@ -975,7 +977,7 @@ def seed_tickets_and_ops(
             )
             hop_id += 1
             hop_seq += 1
-            hop_time += timedelta(hours=1)
+            hop_time += timedelta(minutes=9)
 
         # Non-multi desk occasional correction bounce.
         if not requires_multi and automatable == 0 and rng.random() < 0.12:
@@ -989,7 +991,7 @@ def seed_tickets_and_ops(
                     alt_desk,
                     owner_agent_id,
                     "Initial misroute correction",
-                    to_ts(created_at + timedelta(hours=2)),
+                    to_ts(created_at + timedelta(minutes=22)),
                 )
             )
             hop_id += 1
@@ -1003,7 +1005,7 @@ def seed_tickets_and_ops(
                     plan_desks[0],
                     owner_agent_id,
                     "Returned to primary desk",
-                    to_ts(created_at + timedelta(hours=3)),
+                    to_ts(created_at + timedelta(minutes=31)),
                 )
             )
             hop_id += 1
@@ -1058,7 +1060,7 @@ def seed_tickets_and_ops(
                     client["email"],
                     f"Re: {subject}",
                     "Human owner assigned and working on your request.",
-                    to_ts(first_response_at + timedelta(hours=2)),
+                    to_ts(first_response_at + timedelta(minutes=14)),
                     0,
                     "SENT",
                     trace_local.get("owner") or trace_local.get("human"),

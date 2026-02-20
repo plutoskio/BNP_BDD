@@ -18,7 +18,6 @@ const dom = {
   kpiAutoRate: document.getElementById("kpi-auto-rate"),
   kpiAutoCount: document.getElementById("kpi-auto-count"),
   kpiMulti: document.getElementById("kpi-multi"),
-  kpiFr: document.getElementById("kpi-fr"),
   kpiRes: document.getElementById("kpi-res"),
   kpiOver24: document.getElementById("kpi-over24"),
   kpiInbound: document.getElementById("kpi-inbound"),
@@ -117,7 +116,6 @@ function renderOverview(data) {
   dom.kpiAutoRate.textContent = `${data.automatable_rate_pct}%`;
   dom.kpiAutoCount.textContent = `${data.automatable_tickets} automatable tickets`;
   dom.kpiMulti.textContent = `${data.multi_desk_tickets}`;
-  dom.kpiFr.textContent = `${data.avg_first_response_min}m`;
   dom.kpiRes.textContent = fmtHours(data.avg_resolution_hours);
   dom.kpiOver24.textContent = `${data.active_over_24h}`;
   dom.kpiInbound.textContent = `${data.inbound_last_15m}`;

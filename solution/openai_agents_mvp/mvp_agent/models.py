@@ -14,6 +14,15 @@ INTENT_CODES = [
     "sanctions_review_query",
     "corporate_action_instruction",
     "fee_dispute",
+    "investment_advice_request",
+    "portfolio_rebalancing_advice",
+    "risk_profile_review",
+    "tax_withholding_query",
+    "tax_document_request",
+    "capital_gains_tax_query",
+    "platform_access_issue",
+    "password_reset_request",
+    "api_connectivity_issue",
 ]
 
 

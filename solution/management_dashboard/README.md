@@ -14,7 +14,6 @@ It is intentionally read-only:
   - active workload
   - automatable rate
   - multi-desk ticket count
-  - average first response time
   - average resolution time
   - active tickets older than 24h
   - inbound email volume (last 15 minutes)

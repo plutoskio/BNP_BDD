@@ -1,0 +1,65 @@
+digraph DecisionTree {
+  graph [
+    rankdir=LR,
+    bgcolor="white",
+    splines=true,
+    nodesep=0.55,
+    ranksep=0.85,
+    pad=0.25
+  ];
+
+  node [
+    shape=box,
+    style="rounded,filled",
+    fillcolor="#01925c",
+    color="#01925c",
+    fontname="Helvetica",
+    fontsize=18,
+    fontcolor="white",
+    penwidth=1.6,
+    margin="0.13,0.09"
+  ];
+
+  edge [
+    color="#01925c",
+    penwidth=1.8,
+    arrowsize=0.9,
+    fontname="Helvetica",
+    fontsize=13,
+    fontcolor="#0a4c33"
+  ];
+
+  A [label="New SR"];
+  B [label="Objective data\nanswer?", shape=diamond, style="filled", fillcolor="#e6f5ef", color="#01925c", fontcolor="#0a4c33"];
+  C [label="AI reply"];
+  D [label="Client\nsatisfied?", shape=diamond, style="filled", fillcolor="#e6f5ef", color="#01925c", fontcolor="#0a4c33"];
+  E [label="Close / Monitor"];
+  F [label="Multi-desk\ncase?", shape=diamond, style="filled", fillcolor="#e6f5ef", color="#01925c", fontcolor="#0a4c33"];
+  G [label="AI coordinator"];
+  G1 [label="Assign single owner"];
+  G2 [label="Run desk tasks\nin parallel"];
+  G3 [label="Merge outputs +\nfinal response"];
+  H [label="Smart route to agent\n(based on topic\nand workload)"];
+  I [label="Human resolution"];
+  J [label="Outcome log"];
+
+  A -> B;
+  B -> C [label="Yes"];
+  B -> F [label="No"];
+
+  C -> D;
+  D -> E [label="Yes"];
+  D -> H [label="No"];
+
+  F -> H [label="No"];
+  F -> G [label="Yes"];
+  G -> G1;
+  G1 -> G2;
+  G2 -> G3;
+
+  H -> I;
+
+  E -> J;
+  G3 -> J;
+  I -> J;
+}

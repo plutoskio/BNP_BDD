@@ -19,10 +19,34 @@ INTENT_KEYWORDS: dict[str, list[str]] = {
     "sanctions_review_query": ["sanctions", "aml", "watchlist", "restricted"],
     "corporate_action_instruction": ["corporate action", "dividend election", "rights issue", "tender"],
     "fee_dispute": ["fee dispute", "incorrect fee", "charge issue", "billing dispute"],
+    "investment_advice_request": [
+        "investment advice",
+        "investment advice request",
+        "advice on portfolio",
+        "what should i invest",
+        "allocation recommendation",
+        "portfolio strategy",
+    ],
+    "portfolio_rebalancing_advice": ["rebalance", "rebalancing", "target allocation", "allocation drift", "portfolio rebalance"],
+    "risk_profile_review": ["risk profile", "risk tolerance", "risk appetite", "suitability review", "risk review"],
+    "tax_withholding_query": ["withholding tax", "tax withholding", "tax deducted", "tax rate"],
+    "tax_document_request": ["tax statement", "tax document", "tax report", "1099", "fiscal certificate"],
+    "capital_gains_tax_query": ["capital gains tax", "tax on gains", "realized gains tax", "cost basis tax"],
+    "platform_access_issue": ["cannot login", "can't login", "account locked", "platform access", "unable to access portal"],
+    "password_reset_request": ["password reset", "reset password", "forgot password", "unlock account"],
+    "api_connectivity_issue": [
+        "api error",
+        "api connectivity",
+        "integration issue",
+        "api integration",
+        "webhook failure",
+        "webhook timeout",
+        "api timeout",
+    ],
 }
 
 SUBJECTIVE_HINTS = {"advice", "recommend", "opinion", "best strategy", "what should we do"}
-MULTI_HINTS = {"failed", "investigation", "sanctions", "corporate action", "reconcile", "closure"}
+MULTI_HINTS = {"failed", "investigation", "sanctions", "corporate action", "reconcile", "closure", "cross-desk"}
 
 
 class IntentClassifier:

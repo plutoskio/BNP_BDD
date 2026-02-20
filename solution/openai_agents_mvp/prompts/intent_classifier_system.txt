@@ -21,5 +21,14 @@ Intent mapping guidance:
 - sanctions_review_query: asks sanctions/AML/watchlist review status
 - corporate_action_instruction: asks corporate action election/instruction handling
 - fee_dispute: asks fee/charge disagreement or billing issue
+- investment_advice_request: asks investment recommendation or advisory strategy guidance
+- portfolio_rebalancing_advice: asks portfolio rebalance or target allocation advice
+- risk_profile_review: asks suitability or risk profile reassessment/review
+- tax_withholding_query: asks withholding-tax treatment or deductions
+- tax_document_request: asks for tax statements/documents/certificates
+- capital_gains_tax_query: asks tax implications on realized gains/cost basis
+- platform_access_issue: asks for help with portal/platform access/login failure
+- password_reset_request: asks for password reset or account unlock
+- api_connectivity_issue: asks about API/integration/webhook connectivity errors
 
 If uncertain, choose the closest intent and lower confidence.

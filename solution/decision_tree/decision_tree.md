@@ -9,28 +9,26 @@ Design a theoretical, high-impact triage logic for Hobart that:
 ## Visual Decision Tree
 
 ```mermaid
-flowchart TD
-    A["Incoming Query (SR)"] --> B{"Is answer directly available in trusted data<br/>with no subjective interpretation?"}
+flowchart LR
+    A["New SR"] --> B{"Objective data answer?"}
 
-    B -- Yes --> C["AI Response"]
-    C --> C3{"Client satisfied?"}
-    C3 -- Yes --> C4["Close or monitor ticket"]
-    C3 -- No --> F["Suggest best-fit human agent based on expertise, load, and SLA risk"]
+    B -- Yes --> C["AI reply"]
+    C --> D{"Client satisfied?"}
+    D -- Yes --> E["Close / Monitor"]
+    D -- No --> H["Smart route to agent<br/>(based on topic and workload)"]
 
-    B -- No --> D{"Does this require multiple desks?"}
+    B -- No --> F{"Multi-desk case?"}
+    F -- No --> H
+    F -- Yes --> G["AI coordinator"]
+    G --> G1["Assign single owner"]
+    G1 --> G2["Run desk tasks in parallel"]
+    G2 --> G3["Merge outputs + final response"]
 
-    D -- No --> F["Suggest best-fit human agent based on expertise, load, and SLA risk"]
-    D -- Yes --> E["AI Coordinator: Multi-Desk Workflow Orchestrator"]
-    E --> E1["Assign human ticket owner (accountable end-to-end)"]
-    E1 --> E2["Create parallel desk tasks + dependency tracking"]
-    E2 --> E3["Consolidate outputs + final client response"]
+    H --> I["Human resolution"]
 
-    F --> F2["Human agent handles case"]
-
-    C4 --> G["Outcome Tracking"]
-    E3 --> G
-    F2 --> G
-    G --> H["KPI reporting and governance"]
+    E --> J["Outcome log"]
+    G3 --> J
+    I --> J
 ```
 
 ## Node Logic (Plain Language)

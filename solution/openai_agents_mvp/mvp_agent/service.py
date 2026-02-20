@@ -585,14 +585,14 @@ class RoutingService:
 
         if automatable_final == 1:
             status = "RESOLVED"
-            resolved_at = created + timedelta(minutes=15)
+            resolved_at = created
             client_satisfied = 1
-            first_response_at = created + timedelta(minutes=8)
+            first_response_at = created
         else:
             status = "ESCALATED" if (requires_multi_final == 1 and priority in {"HIGH", "CRITICAL"}) else "IN_PROGRESS"
             resolved_at = None
             client_satisfied = None
-            first_response_at = created + timedelta(minutes=30)
+            first_response_at = created
 
         tmp_ref = f"TMP-{uuid4().hex[:12].upper()}"
         cur = conn.execute(
@@ -663,12 +663,12 @@ class RoutingService:
                     owner_agent_id,
                     int(rule["primary_desk_id"]),
                     "Assigned by AI routing based on specialty and workload.",
-                    self._to_ts(created + timedelta(minutes=2)),
+                    self._to_ts(created),
                     self._to_ts(resolved_at) if resolved_at else None,
                 ),
             )
 
-        trace_time = created + timedelta(minutes=1)
+        trace_time = created
         self._insert_trace(
             conn,
             ticket_id,
@@ -678,7 +678,7 @@ class RoutingService:
             "AI",
             trace_time,
         )
-        trace_time += timedelta(minutes=1)
+        trace_time += timedelta(seconds=1)
 
         decision_path: list[str] = []
         related_trace_id: int | None = None
@@ -693,7 +693,7 @@ class RoutingService:
                 "AI",
                 trace_time,
             )
-            trace_time += timedelta(minutes=1)
+            trace_time += timedelta(seconds=1)
             self._insert_trace(
                 conn,
                 ticket_id,
@@ -728,7 +728,7 @@ class RoutingService:
                 "AI",
                 trace_time,
             )
-            trace_time += timedelta(minutes=1)
+            trace_time += timedelta(seconds=1)
 
             if requires_multi_final == 1:
                 trace_coord = self._insert_trace(
@@ -740,7 +740,7 @@ class RoutingService:
                     "AI",
                     trace_time,
                 )
-                trace_time += timedelta(minutes=1)
+                trace_time += timedelta(seconds=1)
                 self._insert_trace(
                     conn,
                     ticket_id,
@@ -771,7 +771,7 @@ class RoutingService:
                         (ticket_id, idx, desk_id, "AI-generated multi-desk plan step"),
                     )
 
-                hop_time = created + timedelta(minutes=2)
+                hop_time = created
                 conn.execute(
                     """
                     INSERT INTO ticket_desk_hops (
@@ -788,7 +788,7 @@ class RoutingService:
                 )
 
                 for idx in range(1, len(sequence_ids)):
-                    hop_time += timedelta(hours=1)
+                    hop_time += timedelta(seconds=1)
                     conn.execute(
                         """
                         INSERT INTO ticket_desk_hops (
@@ -860,7 +860,7 @@ class RoutingService:
                         hopped_at
                     ) VALUES (?, 1, NULL, ?, ?, 'Initial routing assignment', ?);
                     """,
-                    (ticket_id, int(rule["primary_desk_id"]), owner_agent_id, self._to_ts(created + timedelta(minutes=2))),
+                    (ticket_id, int(rule["primary_desk_id"]), owner_agent_id, self._to_ts(created)),
                 )
 
                 related_trace_id = trace_route
@@ -1023,7 +1023,7 @@ class RoutingService:
             f"ROUTE_TO_{owner_code}",
             "Escalation from AI response to human owner.",
             "AI",
-            now + timedelta(minutes=1),
+            now,
             owner_id,
         )
 
@@ -1058,7 +1058,7 @@ class RoutingService:
             recipient_email=str(client["email"]),
             subject=f"Re: {payload.subject}",
             body=reply_body,
-            sent_at=now + timedelta(minutes=5),
+            sent_at=now,
             is_automated=1,
             related_trace_id=trace_escalation,
         )
